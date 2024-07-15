@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -8,6 +9,8 @@ import utils.DriverFactory;
 import utils.PropertyReader;
 
 import java.time.Duration;
+
+import static com.codeborne.selenide.Selenide.open;
 
 //@Listeners({InvokedListener.class, TestListener.class})
 public class BaseTest {
@@ -24,20 +27,21 @@ public class BaseTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         this.loginPage = new LoginPage(driver);
+        Configuration.baseUrl = BASE_URL;
+        Configuration.browserSize = "1920x1080";
+        Configuration.browser = browser;
+        Configuration.timeout = 10000;
 
     }
     @BeforeMethod(onlyForGroups = "withSuccessLogin")
     public void preConditionForGroup() {
+        open("/");
         loginPage.login(BASE_LOGIN, BASE_PASSWORD);
     }
     @AfterMethod()
     public void postCondition() {
         driver.manage().deleteAllCookies();
         driver.navigate().refresh();
-    }
-    @BeforeMethod(alwaysRun = true)
-    public void preCondition() {
-        loginPage.open(BASE_URL);
     }
 
     @AfterClass(alwaysRun = true)
