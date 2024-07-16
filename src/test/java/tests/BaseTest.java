@@ -4,6 +4,8 @@ import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
+import pages.AddWorkoutPage;
+import pages.CalendarPage;
 import pages.LoginPage;
 import utils.DriverFactory;
 import utils.PropertyReader;
@@ -16,6 +18,8 @@ import static com.codeborne.selenide.Selenide.open;
 public class BaseTest {
     protected WebDriver driver;
     protected LoginPage loginPage;
+    protected CalendarPage calendarPage;
+    protected AddWorkoutPage addWorkoutPage;
     protected String BASE_URL = PropertyReader.getProperty("url");
     protected static final String BASE_LOGIN = PropertyReader.getProperty("login");
     protected static final String BASE_PASSWORD = PropertyReader.getProperty("password");
@@ -27,6 +31,8 @@ public class BaseTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         this.loginPage = new LoginPage(driver);
+        this.calendarPage = new CalendarPage(driver);
+        this.addWorkoutPage = new AddWorkoutPage(driver);
         Configuration.baseUrl = BASE_URL;
         Configuration.browserSize = "1920x1080";
         Configuration.browser = browser;
