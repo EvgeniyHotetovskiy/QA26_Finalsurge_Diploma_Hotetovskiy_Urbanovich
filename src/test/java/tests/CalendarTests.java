@@ -3,9 +3,6 @@ package tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
-
-
 public class CalendarTests  extends BaseTest {
 
     @Test(groups = "withSuccessLogin")
@@ -15,6 +12,4 @@ public class CalendarTests  extends BaseTest {
         calendarPage.clickAddWorkout();
         Assert.assertTrue(calendarPage.WorkOutIsDisplayed());
     }
-
-
 }
