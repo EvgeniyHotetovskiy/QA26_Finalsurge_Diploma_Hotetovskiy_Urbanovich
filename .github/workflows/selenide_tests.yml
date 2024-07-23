@@ -35,7 +35,7 @@ jobs:
       run: mvn -B clean test
 
     - name: Generate Allure Report
-      uses: simple-elf/allure-report-adtion@master
+      uses: simple-elf/allure-report-action@master
       if: always()
       id: allure-report
       with:
