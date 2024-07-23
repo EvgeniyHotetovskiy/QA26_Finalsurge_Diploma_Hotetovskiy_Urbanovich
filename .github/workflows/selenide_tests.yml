@@ -32,7 +32,7 @@ jobs:
     - run: chome --version
     
     - name: Build with Maven
-      run: mvn -B clean test
+    - run: mvn -B clean test
 
     - name: Generate Allure Report
     - uses: simple-elf/allure-report-adtion@master
