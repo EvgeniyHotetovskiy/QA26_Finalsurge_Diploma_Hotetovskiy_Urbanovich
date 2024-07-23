@@ -45,6 +45,12 @@ public class BaseTest {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
 
     }
+    @BeforeMethod(alwaysRun = true)
+    public void openBrowser () {
+        open("/");
+    }
+
+
     @BeforeMethod(onlyForGroups = "withSuccessLogin")
     public void preConditionForGroup() {
         open("/");
