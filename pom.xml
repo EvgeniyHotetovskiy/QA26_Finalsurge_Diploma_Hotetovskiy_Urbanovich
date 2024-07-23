@@ -31,6 +31,11 @@
             <artifactId>selenide</artifactId>
             <version>${selenide.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>${allure-selenide.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -75,5 +80,6 @@
         <allure-testng.version>2.27.0</allure-testng.version>
         <allure-maven.version>2.12.0</allure-maven.version>
         <selenide.version>7.3.3</selenide.version>
+        <allure-selenide.version>2.27.0</allure-selenide.version>
     </properties>
 </project>
