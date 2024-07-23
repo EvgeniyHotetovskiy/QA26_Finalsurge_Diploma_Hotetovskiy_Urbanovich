@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17 
-    - uses: actions/setup-java@v3
+      uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
@@ -32,10 +32,10 @@ jobs:
     - run: chome --version
     
     - name: Build with Maven
-    - run: mvn -B clean test
+      run: mvn -B clean test
 
     - name: Generate Allure Report
-    - uses: simple-elf/allure-report-adtion@master
+      uses: simple-elf/allure-report-adtion@master
       if: always()
       id: allure-report
       with:
@@ -43,7 +43,7 @@ jobs:
         allure_report: target/allure-report
 
     - name: Use the Upload Artifact GitHub Action
-    - uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v2
       with:
         name: report
         path: target/allure-report
