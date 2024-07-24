@@ -67,5 +67,4 @@ public class DashboardPage extends BasePage {
         $(By.cssSelector("div[data-label='past-workouts']")).$(".minor").shouldHave(Condition.text("You have no past workouts within the last 14 days."));
         return true;
     }
-
 }

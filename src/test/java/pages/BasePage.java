@@ -10,5 +10,4 @@ public abstract class BasePage {
     }
 
     public abstract void isOpen();
-
 }
