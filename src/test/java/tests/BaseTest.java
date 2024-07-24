@@ -9,9 +9,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
-import pages.AddWorkoutPage;
-import pages.CalendarPage;
-import pages.LoginPage;
+import pages.*;
 import utils.DriverFactory;
 import utils.PropertyReader;
 import utils.TestListener;
@@ -24,13 +22,17 @@ import static com.codeborne.selenide.Selenide.open;
 
 @Listeners({TestListener.class})
 public class BaseTest {
-//    protected WebDriver driver;
+    protected static final String BASE_LOGIN = PropertyReader.getProperty("login");
+    protected static final String BASE_PASSWORD = PropertyReader.getProperty("password");
+    protected WebDriver driver;
     protected LoginPage loginPage;
     protected CalendarPage calendarPage;
     protected AddWorkoutPage addWorkoutPage;
+    protected DashboardPage dashboardPage;
+    protected WourkoutDetailsPage wourkoutDetailsPage;
+    protected ReportPage reportPage;
+    protected CalculatorPage calculatorPage;
     protected String BASE_URL = PropertyReader.getProperty("url");
-    protected static final String BASE_LOGIN = PropertyReader.getProperty("login");
-    protected static final String BASE_PASSWORD = PropertyReader.getProperty("password");
 
     @BeforeClass(alwaysRun = true)
     @Parameters({"browserName"})
@@ -38,6 +40,10 @@ public class BaseTest {
         this.loginPage = new LoginPage();
         this.calendarPage = new CalendarPage();
         this.addWorkoutPage = new AddWorkoutPage();
+        this.dashboardPage = new DashboardPage();
+        this.wourkoutDetailsPage = new WourkoutDetailsPage();
+        this.reportPage = new ReportPage();
+        this.calculatorPage = new CalculatorPage();
         Configuration.baseUrl = BASE_URL;
         Configuration.browserSize = "1920x1080";
         Configuration.browser = browser;
@@ -45,6 +51,7 @@ public class BaseTest {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
 
     }
+
     @BeforeMethod(onlyForGroups = "withSuccessLogin")
     public void preConditionForGroup() {
         open("/");
@@ -54,6 +61,5 @@ public class BaseTest {
     public byte[] screenshot() throws IOException {
         File screenshot = Screenshots.getLastScreenshot();
         return screenshot == null ? null : Files.toByteArray(screenshot);
-
     }
 }
