@@ -85,6 +85,7 @@ public class CalendarTests extends BaseTest {
         wourkoutDetailsPage.isOpen();
         dashboardPage.clickCalendar();
         Assert.assertTrue(calendarPage.trainingTableIsDisplayed());
+        calendarPage.deleteWorkout();
 
 
     }
