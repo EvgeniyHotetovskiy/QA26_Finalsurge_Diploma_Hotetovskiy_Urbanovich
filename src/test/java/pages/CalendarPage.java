@@ -113,7 +113,6 @@ public class CalendarPage extends BasePage {
     @Step("Удалить тренировку(таблица)")
     public void deleteWorkout() {
         $(By.xpath("//table//tr[1]//td[1]")).$(".fc-event-activity-title").click();
-        //$(".fc-event-activity-title").$("a.quick-delete").click();
         $("a.quick-delete").click();
         $(".modal-footer").$("a:nth-of-type(1)").click();
         $(By.xpath("//table//tr[1]//td[1]")).$(".fc-event-activity-title").shouldBe(disappear);

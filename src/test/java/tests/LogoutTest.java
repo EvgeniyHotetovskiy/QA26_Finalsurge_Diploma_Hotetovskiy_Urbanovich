@@ -3,7 +3,7 @@ package tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-@Test(groups = "withSuccessLogin")
+@Test(groups = {"smoke", "withSuccessLogin"})
 public class LogoutTest extends BaseTest {
     public void positiveLogoutTest() {
         calendarPage.isOpen();
