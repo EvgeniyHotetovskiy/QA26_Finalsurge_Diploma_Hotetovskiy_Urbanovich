@@ -32,6 +32,9 @@ public class BaseTest {
     protected WourkoutDetailsPage wourkoutDetailsPage;
     protected ReportPage reportPage;
     protected CalculatorPage calculatorPage;
+    protected LogoutPage logoutPage;
+    protected EquipmentPage equipmentPage;
+    protected ShoesPage shoesPage;
     protected String BASE_URL = PropertyReader.getProperty("url");
 
     @BeforeClass(alwaysRun = true)
@@ -44,6 +47,9 @@ public class BaseTest {
         this.wourkoutDetailsPage = new WourkoutDetailsPage();
         this.reportPage = new ReportPage();
         this.calculatorPage = new CalculatorPage();
+        this.logoutPage = new LogoutPage();
+        this.equipmentPage = new EquipmentPage();
+        this.shoesPage = new ShoesPage();
         Configuration.baseUrl = BASE_URL;
         Configuration.browserSize = "1920x1080";
         Configuration.browser = browser;

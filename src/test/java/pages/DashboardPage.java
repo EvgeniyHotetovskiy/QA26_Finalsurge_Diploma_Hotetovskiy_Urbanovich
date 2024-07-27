@@ -14,6 +14,8 @@ public class DashboardPage extends BasePage {
     private static final By WORKOUT_REPORT_PAGE = By.cssSelector("a[href='WorkoutReport.cshtml'].ptip_s");
     private static final String VIEW_CALENDAR = ".btn.btn-small.btn-info.ptip_s";
     private static final String UPCOMING_WORKOUTS = ".w-box-header";
+    private static final By LOGOUT_BUTTON = By.cssSelector("a[href='logout.cshtml']");
+    private static final By EQUIPMENT_PAGE = By.cssSelector("a[href='Equipment.cshtml']");
 
     @Override
     public void isOpen() {
@@ -39,6 +41,11 @@ public class DashboardPage extends BasePage {
     public void clickWorkoutReportPage() {
         $(WORKOUT_REPORT_PAGE).click();
     }
+    @Step("Открыть страницу 'Снаряжение'")
+    public void clickEquipmentPage() {
+        $(EQUIPMENT_PAGE).click();
+    }
+
 
 
     @Step("Открыть страницу 'Отчёты'")
@@ -66,5 +73,8 @@ public class DashboardPage extends BasePage {
     public boolean PastWorkoutEmpty() {
         $(By.cssSelector("div[data-label='past-workouts']")).$(".minor").shouldHave(Condition.text("You have no past workouts within the last 14 days."));
         return true;
+    }
+    public void clickLogoutButton(){
+        $(LOGOUT_BUTTON).click();
     }
 }
