@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 
 public class CalculatorTests extends BaseTest {
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin", "regression"})
     public void positiveIntensityTest() {
 
         Calculator intensityCalc = new Calculator.CalculatorBuilder()
@@ -22,7 +22,7 @@ public class CalculatorTests extends BaseTest {
         Assert.assertTrue(calculatorPage.workoutSplitdisplayed());
     }
 
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin", "regression"})
     public void negativeIntensityTest() {
 
         Calculator intensityCalc = new Calculator.CalculatorBuilder()

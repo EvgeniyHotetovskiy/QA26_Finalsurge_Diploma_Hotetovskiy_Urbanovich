@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
@@ -11,11 +12,11 @@ public class LoginPage extends BasePage {
     private static final By inputEmailField = By.cssSelector("#login_name");
     private static final By inputPasswordField = By.cssSelector("#login_password");
     private static final By LOGIN_BUTTON = By.cssSelector("button[type='submit']");
+    private static final By ERROR_MESSAGE_EMAIL = By.cssSelector("label[class='error'][for='login_name']");
 
     @Override
     public void isOpen() {
         $(LOGIN_BUTTON).shouldBe(clickable);
-
     }
 
     public void setEmailValue(String email) {
@@ -35,5 +36,11 @@ public class LoginPage extends BasePage {
         setEmailValue(email);
         setPasswordValue(password);
         clickLoginButton();
+    }
+    public String getErrorEmailMessageText (){
+        return $(ERROR_MESSAGE_EMAIL).text();
+    }
+    public void isDisplayEmailMessageError() {
+        $(ERROR_MESSAGE_EMAIL).shouldBe(clickable);
     }
 }

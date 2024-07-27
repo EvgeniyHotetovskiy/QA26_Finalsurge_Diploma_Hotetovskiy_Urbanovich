@@ -12,7 +12,7 @@ public class DashboardPage extends BasePage {
     private static final By CALENDAR_PAGE = By.cssSelector("a[href='Calendar.cshtml'].ptip_s");
     private static final By CALCULATOR_PAGE = By.cssSelector("a[href='#'].ptip_s");
     private static final By WORKOUT_REPORT_PAGE = By.cssSelector("a[href='WorkoutReport.cshtml'].ptip_s");
-    private static final String VIEW_CALENDAR = ".btn.btn-small.btn-info.ptip_s";
+    private static final String VIEW_CALENDAR = "#workout-add";
     private static final String UPCOMING_WORKOUTS = ".w-box-header";
 
     @Override

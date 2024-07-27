@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Regression Tests" parallel="classes" thread-count="3">
+<suite name="Smoke Tests" parallel="classes" thread-count="3">
     <test name="Test on chrome">
         <parameter name="browserName" value="chrome"></parameter>
         <groups>
             <run>
-                <include name="regression"/>
+                <include name="smoke"/>
             </run>
         </groups>
         <packages>

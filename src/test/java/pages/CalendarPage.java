@@ -35,7 +35,6 @@ public class CalendarPage extends BasePage {
     @Step("Нажать на добавление тренировки через кнопку 'Быстрое добавление'")
     public void addQuickWorkoutWithButton() {
         $(QUICK_ADD_TOGGLE).click();
-
     }
 
     @Step("Нажать на добавление тренировки через кнопку 'Быстрое добавление' с календаря")//bug на русском языке
@@ -73,7 +72,6 @@ public class CalendarPage extends BasePage {
     @Step("Выбор типа активности при быстром добавлении")
     public void activityTypeQuickSelect(AddWorkout quickWorkout) {
         $("#ActivityType").selectOption(quickWorkout.getActivityType());
-
     }
 
     @Step("Созданная на сегодня тренировка отобразилась в календаре")
@@ -85,7 +83,6 @@ public class CalendarPage extends BasePage {
     public boolean activityTypeError() {
         $(".alert.alert-error").shouldHave(Condition.text("*Please select a valid Activity Type."));
         return true;
-
     }
 
     @Step("проверка отображения тренировки в календаре")
@@ -108,7 +105,6 @@ public class CalendarPage extends BasePage {
     public void editTrainingLikeTable() {
         $(By.xpath("//table//tr[1]//td[1]")).$(".fc-event-activity-title").click();
         $(By.xpath("//table//tr[1]//td[1]")).$("a.full-view").click();
-
     }
 
     @Step("Установить завтрашнюю дату тренировки")
@@ -119,7 +115,6 @@ public class CalendarPage extends BasePage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
         String formattedDate = tomorrow.format(formatter);
         $("#WorkoutDate").setValue(formattedDate);
-
     }
 
     @Step("Установить вчерашнюю дату тренировки")
