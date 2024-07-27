@@ -11,10 +11,8 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.switchTo;
 
 public class CalculatorPage extends BasePage {
-
     private static final String SAVE_BUTTON = "#saveButtonSettings";
     private static final By TINMAN_BUTTON = By.cssSelector("a[href^='https://log.finalsurge.com/TinmanCalc.cshtml']");
-
 
     @Override
     public void isOpen() {
@@ -23,7 +21,6 @@ public class CalculatorPage extends BasePage {
             $(SAVE_BUTTON).shouldBe(clickable);
         }
     }
-
 
     @Step("Ввод времени")
     public void inputIntencityCalcTime(Calculator intensityCalc) {
@@ -34,13 +31,11 @@ public class CalculatorPage extends BasePage {
     @Step("Выбрать калькулятор Tinman")
     public void clickTinmanCalc() {
         $(TINMAN_BUTTON).click();
-
     }
 
     @Step("Заполнение калькулятора")
     public void selectEvent() {
         $("#FIVEK").click();
-
     }
 
     @Step("Заполнение калькулятора")
@@ -58,7 +53,6 @@ public class CalculatorPage extends BasePage {
         $("#Male").click();
     }
 
-
     public boolean workoutSplitdisplayed() {
         return $(".w-box").should(exist).isDisplayed();
     }
@@ -68,6 +62,4 @@ public class CalculatorPage extends BasePage {
         $(".alert.alert-error").should(exist).shouldHave(Condition.text("*Please enter an Integer value for Seconds."));
         return true;
     }
-
-
 }

@@ -23,7 +23,7 @@ public class CalendarTests extends BaseTest {
 
     }
 
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin", "regression"})
     public void negativeAddQuickWorkout() {
         dashboardPage.clickCalendar();
         calendarPage.isOpen();
@@ -48,7 +48,7 @@ public class CalendarTests extends BaseTest {
         calendarPage.deleteTodayWorkout();
     }
 
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin", "regression"})
     public void editWorkout() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setActivityType("Swim")

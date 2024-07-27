@@ -12,7 +12,6 @@ public class AddWorkoutPage extends BasePage {
     private static final String  WORKOUT_NAME = "#Name";
     private static final By CUSTOMIZE_SETTINGS = By.cssSelector("a[href='WorkoutCustomize.cshtml?id=']");
 
-
     @Override
     public void isOpen() {
         $(CUSTOMIZE_SETTINGS).shouldBe(clickable);

@@ -10,14 +10,12 @@ import static com.codeborne.selenide.Condition.clickable;
 import static com.codeborne.selenide.Selenide.$;
 
 public class ReportPage extends BasePage {
-
     private static final String VIEW_REPORT = "#saveButton";
     private static final String ZONE_REPORT = ("a[href='WorkoutZoneReport']");
 
     @Override
     public void isOpen() {
         $(VIEW_REPORT).shouldBe(clickable);
-
     }
 
     public void startDate() {

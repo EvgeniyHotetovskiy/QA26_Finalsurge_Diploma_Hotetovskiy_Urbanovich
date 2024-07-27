@@ -30,7 +30,6 @@ public class WourkoutDetailsPage extends BasePage {
         $("#PDistance").setValue(editWorkout.getpDistance());
         $("#PDistType").selectOption(editWorkout.getpDistanceType());
         $("#PDuration").setValue(editWorkout.getpDuration());
-
         $("#Distance").setValue(editWorkout.getDistance());
         $("#DistType").selectOption(editWorkout.getDistanceType());
         $("#Duration").setValue(editWorkout.getDuration());
@@ -39,7 +38,6 @@ public class WourkoutDetailsPage extends BasePage {
         $("#hf_good").click();
         $("#kCal").setValue(editWorkout.getkCal());
         $("#SaveLibrary").click();
-
     }
 
 }
