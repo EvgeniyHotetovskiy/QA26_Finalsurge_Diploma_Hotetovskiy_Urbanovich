@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 
 public class CalculatorTests extends BaseTest {
-    @Test(groups = {"withSuccessLogin", "regression"})
+    @Test(groups = {"withSuccessLogin", "regression", "smoke"})
     public void positiveIntensityTest() {
 
         Calculator intensityCalc = new Calculator.CalculatorBuilder()
@@ -36,7 +36,7 @@ public class CalculatorTests extends BaseTest {
         Assert.assertTrue(calculatorPage.intencityCalcError());
     }
 
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin", "regression"})
     public void positiveTinmanTest() {
         Calculator intensityCalc = new Calculator.CalculatorBuilder()
                 .setHours("00")
@@ -53,7 +53,7 @@ public class CalculatorTests extends BaseTest {
         Assert.assertTrue(calculatorPage.workoutSplitdisplayed());
     }
 
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin", "regression"})
     public void defectTinmanTest() {
         Calculator intensityCalc = new Calculator.CalculatorBuilder()
                 .setHours("00")

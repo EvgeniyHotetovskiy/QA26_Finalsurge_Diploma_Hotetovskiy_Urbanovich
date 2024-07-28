@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import static com.codeborne.selenide.Selenide.switchTo;
 
 public class ReportTests extends BaseTest {
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin", "regression", "smoke"})
     public void positiveViewWorkoutReport() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setActivityType("Walk")
@@ -31,7 +31,7 @@ public class ReportTests extends BaseTest {
         calendarPage.isOpen();
     }
 
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin",  "regression"})
     public void negativeViewZoneReport() {
         dashboardPage.clickWorkoutReportPage();
         reportPage.isOpen();

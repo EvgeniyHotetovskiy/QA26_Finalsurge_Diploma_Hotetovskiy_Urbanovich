@@ -66,5 +66,4 @@ public class ShoesTests extends BaseTest {
         Assert.assertTrue(shoesPage.shoeNameError());
     }
 
-
 }

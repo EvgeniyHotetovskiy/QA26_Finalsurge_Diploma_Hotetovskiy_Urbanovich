@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 
 public class CalendarTests extends BaseTest {
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin", "regression", "smoke"})
     public void positiveAddQuickWorkOutTodayByButton() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setActivityType("Run")
@@ -32,7 +32,7 @@ public class CalendarTests extends BaseTest {
         Assert.assertTrue(calendarPage.activityTypeError(), "*Please select a valid Activity Type.");
     }
 
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin", "regression", "smoke"})
     public void addFullFromCalendar() {
         AddWorkout fullWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setName("morning run")
@@ -90,7 +90,7 @@ public class CalendarTests extends BaseTest {
 
     }
 
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin", "regression"})
     public void viewFutureTrainingFromDashbordPage() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setActivityType("Bike")
@@ -110,7 +110,7 @@ public class CalendarTests extends BaseTest {
         addWorkoutPage.deleteWorkout();
     }
 
-    @Test(groups = "withSuccessLogin")
+    @Test(groups = {"withSuccessLogin", "regression"})
     public void viewPastTrainingFromDashbordPage() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setActivityType("Walk")
