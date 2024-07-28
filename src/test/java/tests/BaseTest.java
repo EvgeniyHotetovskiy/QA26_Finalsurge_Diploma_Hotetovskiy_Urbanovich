@@ -9,8 +9,7 @@ import pages.*;
 import utils.PropertyReader;
 import utils.TestListener;
 
-import static com.codeborne.selenide.Selenide.closeWindow;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 @Listeners({TestListener.class})
 public class BaseTest {
@@ -60,6 +59,6 @@ public class BaseTest {
 
     @AfterMethod (alwaysRun = true)
     public void postCondition(){
-        closeWindow();
+        closeWebDriver();
     }
 }
