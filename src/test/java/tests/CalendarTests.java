@@ -103,7 +103,7 @@ public class CalendarTests extends BaseTest {
         calendarPage.clickAddWorkout();
         dashboardPage.clickDashboardPage();
         dashboardPage.clickUpcomingWorkouts();
-        Assert.assertTrue(dashboardPage.UpcomingWorkoutsExists());
+        Assert.assertTrue(dashboardPage.upcomingWorkoutsExists());
         dashboardPage.clickDetailsWourkout();
         wourkoutDetailsPage.isOpen();
         wourkoutDetailsPage.clickUpdateDWourkout();
@@ -123,14 +123,38 @@ public class CalendarTests extends BaseTest {
         calendarPage.clickAddWorkout();
         dashboardPage.clickDashboardPage();
         dashboardPage.clickPastWorkouts();
-        Assert.assertTrue(dashboardPage.PastWorkoutsExists());
+        Assert.assertTrue(dashboardPage.pastWorkoutsExists());
         dashboardPage.clickDetailsWourkout();
         wourkoutDetailsPage.isOpen();
         wourkoutDetailsPage.clickUpdateDWourkout();
         addWorkoutPage.deleteWorkout();
         calendarPage.isOpen();
         dashboardPage.clickDashboardPage();
-        Assert.assertTrue(dashboardPage.PastWorkoutEmpty());
+        Assert.assertTrue(dashboardPage.pastWorkoutEmpty());
 
     }
+
+    @Test(groups = {"regression", "smoke", "withSuccessLogin"})
+    public void fileUploadTest() {
+        calendarPage.isOpen();
+        calendarPage.clickUploadWorkout();
+        calendarPage.uploadWorkout();
+        wourkoutDetailsPage.isOpen();
+        Assert.assertTrue(calendarPage.downloadButtonIsDisplayed());
+        wourkoutDetailsPage.clickUpdateDWourkout();
+        addWorkoutPage.deleteWorkout();
+
+    }
+
+    @Test(groups = {"regression", "smoke", "withSuccessLogin"})
+    public void fileDownloadTest() {
+        calendarPage.isOpen();
+        calendarPage.clickUploadWorkout();
+        calendarPage.uploadWorkout();
+        wourkoutDetailsPage.isOpen();
+        calendarPage.fileDownload();
+        wourkoutDetailsPage.clickUpdateDWourkout();
+        addWorkoutPage.deleteWorkout();
+    }
+
 }

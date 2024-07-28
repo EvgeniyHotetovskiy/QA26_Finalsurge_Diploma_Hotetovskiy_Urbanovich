@@ -1,6 +1,5 @@
 package pages;
 
-import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
@@ -37,9 +36,11 @@ public class LoginPage extends BasePage {
         setPasswordValue(password);
         clickLoginButton();
     }
-    public String getErrorEmailMessageText (){
+
+    public String getErrorEmailMessageText() {
         return $(ERROR_MESSAGE_EMAIL).text();
     }
+
     public void isDisplayEmailMessageError() {
         $(ERROR_MESSAGE_EMAIL).shouldBe(clickable);
     }

@@ -52,4 +52,22 @@ public class CalculatorTests extends BaseTest {
         calculatorPage.clickCalcPaces();
         Assert.assertTrue(calculatorPage.workoutSplitdisplayed());
     }
+
+    @Test(groups = "withSuccessLogin")
+    public void defectTinmanTest() {
+        Calculator intensityCalc = new Calculator.CalculatorBuilder()
+                .setHours("00")
+                .setMinuts("20")
+                .build();
+        dashboardPage.clickCalculator();
+        calculatorPage.isOpen();
+        calculatorPage.clickTinmanCalc();
+        calculatorPage.selectTinmanRaceDistance();
+        calculatorPage.inputIntencityCalcTime(intensityCalc);
+        calculatorPage.clickGenderButton();
+        calculatorPage.clickCalcPaces();
+        Assert.assertTrue(calculatorPage.intencityCalcError(), "the message about an empty field is not displayed");
+    }
+
+
 }

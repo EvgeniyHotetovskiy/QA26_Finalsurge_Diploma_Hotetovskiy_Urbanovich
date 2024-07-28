@@ -41,11 +41,11 @@ public class DashboardPage extends BasePage {
     public void clickWorkoutReportPage() {
         $(WORKOUT_REPORT_PAGE).click();
     }
+
     @Step("Открыть страницу 'Снаряжение'")
     public void clickEquipmentPage() {
         $(EQUIPMENT_PAGE).click();
     }
-
 
 
     @Step("Открыть страницу 'Отчёты'")
@@ -53,7 +53,7 @@ public class DashboardPage extends BasePage {
         $(".w-box.w-box-green.hideable").$(UPCOMING_WORKOUTS).click();
     }
 
-    public boolean UpcomingWorkoutsExists() {
+    public boolean upcomingWorkoutsExists() {
         return $(".w-box.w-box-green.hideable").$(".dont-break-out").exists();
     }
 
@@ -66,15 +66,16 @@ public class DashboardPage extends BasePage {
         $(By.cssSelector("div[data-label='past-workouts']")).click();
     }
 
-    public boolean PastWorkoutsExists() {
+    public boolean pastWorkoutsExists() {
         return $(By.cssSelector("div[data-label='past-workouts']")).$(".dont-break-out").exists();
     }
 
-    public boolean PastWorkoutEmpty() {
+    public boolean pastWorkoutEmpty() {
         $(By.cssSelector("div[data-label='past-workouts']")).$(".minor").shouldHave(Condition.text("You have no past workouts within the last 14 days."));
         return true;
     }
-    public void clickLogoutButton(){
+
+    public void clickLogoutButton() {
         $(LOGOUT_BUTTON).click();
     }
 }

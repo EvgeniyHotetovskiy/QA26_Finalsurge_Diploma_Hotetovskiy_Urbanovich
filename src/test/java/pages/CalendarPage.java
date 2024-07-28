@@ -1,15 +1,20 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.FileDownloadMode;
 import io.qameta.allure.Step;
 import models.AddWorkout;
 import org.openqa.selenium.By;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.switchTo;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 public class CalendarPage extends BasePage {
@@ -17,9 +22,9 @@ public class CalendarPage extends BasePage {
     private static final String QUICK_ADD_TOGGLE = "#QuickAddToggle";
     private static final By TODAY_DAY = By.cssSelector("[class*='fc-today']");
     private static final String PLUS_ON_THE_CALENDAR = ".icon-plus";
-    private static final String QuickAddFromtheCalendar = ".quick-add";
-    private static final String FullAddFromtheCalendar = ".full-add";
-    private static final String DateField = "#WorkoutDate";
+    private static final String QOICK_ADD_FROM_THE_CALENDAR  = ".quick-add";
+    private static final String FULL_ADD_FROM_THE_CALENDAR  = ".full-add";
+    private static final String DATA_FIELD  = "#WorkoutDate";
     private static final String ADD_WORKOUT = "#saveButton";
 
     @Override
@@ -40,12 +45,12 @@ public class CalendarPage extends BasePage {
     @Step("Нажать на добавление тренировки через кнопку 'Быстрое добавление' с календаря")//bug на русском языке
     public void addQuickWorkoutFromCalendar() {
         $(PLUS_ON_THE_CALENDAR).click();
-        $(QuickAddFromtheCalendar).click();
+        $(QOICK_ADD_FROM_THE_CALENDAR).click();
     }
 
     @Step("Ввод даты")
     public void addDate(String date) {
-        $(DateField).setValue(date);
+        $(DATA_FIELD).setValue(date);
     }
 
     @Step("Удаление сегодняшней тренировки")
@@ -66,7 +71,7 @@ public class CalendarPage extends BasePage {
     @Step("Нажать на добавление тренировки через кнопку 'Расширенное добавление' с календаря")
     public void clickFullWorkoutFromCalendar() {
         $(TODAY_DAY).$(PLUS_ON_THE_CALENDAR).hover().click();
-        $(TODAY_DAY).$(FullAddFromtheCalendar).shouldBe(visible).hover().click();
+        $(TODAY_DAY).$(FULL_ADD_FROM_THE_CALENDAR).shouldBe(visible).hover().click();
     }
 
     @Step("Выбор типа активности при быстром добавлении")
@@ -90,6 +95,7 @@ public class CalendarPage extends BasePage {
         $(".fc-event-activity-title").shouldHave(Condition.text(workoutName));
         return true;
     }
+
     @Step("добавить тренировку (таблица)")
     public void addTrainingLikeTable() {
         $(By.xpath("//table//tr[1]//td[1]")).hover();
@@ -106,6 +112,7 @@ public class CalendarPage extends BasePage {
         $(By.xpath("//table//tr[1]//td[1]")).$(".fc-event-activity-title").click();
         $(By.xpath("//table//tr[1]//td[1]")).$("a.full-view").click();
     }
+
     @Step("Удалить тренировку(таблица)")
     public void deleteWorkout() {
         $(By.xpath("//table//tr[1]//td[1]")).$(".fc-event-activity-title").click();
@@ -132,6 +139,41 @@ public class CalendarPage extends BasePage {
         String formattedDate = yesterday.format(formatter);
         $("#WorkoutDate").setValue(formattedDate);
     }
+
+    @Step("Нажать кнопку 'Загрузить тренировку'")
+    public void clickUploadWorkout() {
+        $(By.xpath("//table//tr[1]//td[1]")).hover();
+        $(PLUS_ON_THE_CALENDAR).click();
+        $("a.quick-upload").click();
+
+    }
+
+    public void uploadWorkout() {
+
+        switchTo().frame($("#WorkoutUploadiFrame"));
+        $("#saveButton").shouldHave(clickable);
+        $("#Name").setValue("Upload Workout");
+        String relativePathToFile = "src/test/resources/example.tcx";
+        String pathToFile = System.getProperty("user.dir") + File.separator + relativePathToFile;
+        File fileUpload = new File(pathToFile);
+        $("input[type='file']").uploadFile(fileUpload);
+        $("#saveButton").click();
+        switchTo().defaultContent();
+    }
+
+    public boolean downloadButtonIsDisplayed() {
+        $("button[onclick*='Delivery/WorkoutSourceFile.cshtml']").shouldBe(clickable);
+        return true;
+    }
+
+    public void fileDownload() {
+        Configuration.fileDownload = FileDownloadMode.FOLDER;
+        File downloadedFile = $("button[onclick*='Delivery/WorkoutSourceFile.cshtml']").download();
+        assertThat(downloadedFile).hasName("BIKE-2024-06-30.tcx");
+
+
+    }
 }
+
 
 

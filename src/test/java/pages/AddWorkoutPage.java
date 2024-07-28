@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class AddWorkoutPage extends BasePage {
     private static final String ADD_WORKOUT = "#saveButton";
-    private static final String  WORKOUT_NAME = "#Name";
+    private static final String WORKOUT_NAME = "#Name";
     private static final By CUSTOMIZE_SETTINGS = By.cssSelector("a[href='WorkoutCustomize.cshtml?id=']");
 
     @Override
@@ -43,4 +43,5 @@ public class AddWorkoutPage extends BasePage {
         $("#del-workout").click();
         $(".modal-footer").$("a:nth-of-type(1)").click();
     }
+
 }

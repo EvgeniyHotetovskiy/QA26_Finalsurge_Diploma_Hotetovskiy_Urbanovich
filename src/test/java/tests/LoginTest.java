@@ -10,6 +10,7 @@ public class LoginTest extends BaseTest {
     public void positiveLoginTest() {
         dashboardPage.isOpen();
     }
+
     @Test(groups = {"regression", "smoke"}, dataProvider = "Негативные тестовые данные для логина")
     public void negativeLoginTest(String email, String password, String errorMessage) {
         loginPage.isOpen();
@@ -17,6 +18,7 @@ public class LoginTest extends BaseTest {
         loginPage.isDisplayEmailMessageError();
         Assert.assertEquals(loginPage.getErrorEmailMessageText(), errorMessage);
     }
+
     @DataProvider(name = "Негативные тестовые данные для логина")
     public Object[][] testDataForLoginTest() {
         String invalidEmailErrorText = "Please enter a valid email address.";

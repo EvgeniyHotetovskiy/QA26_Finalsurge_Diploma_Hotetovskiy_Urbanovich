@@ -46,20 +46,20 @@ public class BaseTest {
         Configuration.browser = browser;
         Configuration.timeout = 10000;
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
-
     }
 
     @BeforeMethod(onlyForGroups = "withSuccessLogin", alwaysRun = true)
     public void preConditionForGroup() {
         loginPage.login(BASE_LOGIN, BASE_PASSWORD);
     }
+
     @BeforeMethod(alwaysRun = true)
     public void preCondition() {
         open("/");
     }
 
-    @AfterMethod (alwaysRun = true)
-    public void postCondition(){
+    @AfterMethod(alwaysRun = true)
+    public void postCondition() {
         closeWindow();
     }
 }

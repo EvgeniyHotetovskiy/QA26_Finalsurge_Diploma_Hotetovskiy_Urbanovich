@@ -28,6 +28,7 @@ public class CalculatorPage extends BasePage {
         $("#TimeMM").setValue(intensityCalc.getMinuts());
         $("#TimeSS").setValue(intensityCalc.getSeconds());
     }
+
     @Step("Выбрать калькулятор Tinman")
     public void clickTinmanCalc() {
         $(TINMAN_BUTTON).click();
