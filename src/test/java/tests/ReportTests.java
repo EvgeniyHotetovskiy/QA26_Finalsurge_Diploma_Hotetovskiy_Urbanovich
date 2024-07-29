@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.switchTo;
 
 public class ReportTests extends BaseTest {
     @Test(groups = {"withSuccessLogin", "regression", "smoke"})
-    public void positiveViewWorkoutReport() throws InterruptedException {
+    public void positiveViewWorkoutReport() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setActivityType("Walk")
                 .build();

@@ -43,12 +43,6 @@ public class DashboardPage extends BasePage {
         $(WORKOUT_REPORT_PAGE).click();
     }
 
-    @Step("Открыть страницу 'Снаряжение'")
-    public void clickEquipmentPage() {
-        $(EQUIPMENT_PAGE).click();
-    }
-
-
     @Step("Открыть страницу 'Отчёты'")
     public void clickUpcomingWorkouts() {
         $(".w-box.w-box-green.hideable").$(UPCOMING_WORKOUTS).click();
