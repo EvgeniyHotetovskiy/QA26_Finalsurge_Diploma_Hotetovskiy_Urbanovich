@@ -9,7 +9,8 @@ import pages.*;
 import utils.PropertyReader;
 import utils.TestListener;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.closeWebDriver;
+import static com.codeborne.selenide.Selenide.open;
 
 @Listeners({TestListener.class})
 public class BaseTest {
