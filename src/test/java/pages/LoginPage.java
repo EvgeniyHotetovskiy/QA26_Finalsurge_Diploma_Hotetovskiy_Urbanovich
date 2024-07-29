@@ -8,8 +8,8 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage extends BasePage {
-    private static final By inputEmailField = By.cssSelector("#login_name");
-    private static final By inputPasswordField = By.cssSelector("#login_password");
+    private static final By INPUT_EMAIL_FIELD = By.cssSelector("#login_name");
+    private static final By INPUT_PASSWORD_FIELD = By.cssSelector("#login_password");
     private static final By LOGIN_BUTTON = By.cssSelector("button[type='submit']");
     private static final By ERROR_MESSAGE_EMAIL = By.cssSelector("label[class='error'][for='login_name']");
 
@@ -19,11 +19,11 @@ public class LoginPage extends BasePage {
     }
 
     public void setEmailValue(String email) {
-        $(inputEmailField).setValue(email);
+        $(INPUT_EMAIL_FIELD).setValue(email);
     }
 
     public void setPasswordValue(String password) {
-        $(inputPasswordField).setValue(password);
+        $(INPUT_PASSWORD_FIELD).setValue(password);
     }
 
     public void clickLoginButton() {
@@ -42,6 +42,6 @@ public class LoginPage extends BasePage {
     }
 
     public void isDisplayEmailMessageError() {
-        $(ERROR_MESSAGE_EMAIL).shouldBe(clickable);
+        $(ERROR_MESSAGE_EMAIL).shouldBe(visible);
     }
 }

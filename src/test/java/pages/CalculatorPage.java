@@ -13,6 +13,12 @@ import static com.codeborne.selenide.Selenide.switchTo;
 public class CalculatorPage extends BasePage {
     private static final String SAVE_BUTTON = "#saveButtonSettings";
     private static final By TINMAN_BUTTON = By.cssSelector("a[href^='https://log.finalsurge.com/TinmanCalc.cshtml']");
+    private static final By RACE_DISTANCE = By.cssSelector("[name='distance']");
+    private static final String GENDER_BUTTON = "#Male";
+    private static final By ALERT_ERROR = By.cssSelector(".alert.alert-error");
+    private static final By RACE_SPLIT = By.cssSelector(".w-box");
+    private static final String EVENT_TYPE = "#FIVEK";
+
 
     @Override
     public void isOpen() {
@@ -36,12 +42,12 @@ public class CalculatorPage extends BasePage {
 
     @Step("Заполнение калькулятора")
     public void selectEvent() {
-        $("#FIVEK").click();
+        $(EVENT_TYPE).click();
     }
 
     @Step("Заполнение калькулятора")
     public void selectTinmanRaceDistance() {
-        $("select[name='distance']").selectOption("10 km");
+        $(RACE_DISTANCE).selectOption("10 km");
     }
 
     @Step("Нажать рассчитать")
@@ -51,16 +57,18 @@ public class CalculatorPage extends BasePage {
 
     @Step("Заполнить гендер")
     public void clickGenderButton() {
-        $("#Male").click();
+        $(GENDER_BUTTON).click();
     }
 
     public boolean workoutSplitdisplayed() {
-        return $(".w-box").should(exist).isDisplayed();
+
+        return $(RACE_SPLIT).should(exist).isDisplayed();
+
     }
 
     @Step("Ошибка при незаполненом типе активности")
     public boolean intencityCalcError() {
-        $(".alert.alert-error").should(exist).shouldHave(Condition.text("*Please enter an Integer value for Seconds."));
+        $(ALERT_ERROR).should(exist).shouldHave(Condition.text("*Please enter an Integer value for Seconds."));
         return true;
     }
 }

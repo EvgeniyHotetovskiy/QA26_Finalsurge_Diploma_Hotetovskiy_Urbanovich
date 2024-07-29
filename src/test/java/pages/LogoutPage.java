@@ -17,7 +17,6 @@ public class LogoutPage extends BasePage {
     }
 
     public boolean successfullLogOutIsDisplayed() {
-        //$(LOGOUT_MESSAGE).shouldHave(Condition.text("*You have been successfully logged out of the system."));
         $(LOGOUT_MESSAGE).shouldHave(Condition.text("You have been successfully logged out of the system."));
         return true;
 

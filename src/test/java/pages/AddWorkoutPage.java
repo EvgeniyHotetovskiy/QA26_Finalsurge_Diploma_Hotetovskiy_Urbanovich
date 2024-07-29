@@ -11,6 +11,9 @@ public class AddWorkoutPage extends BasePage {
     private static final String ADD_WORKOUT = "#saveButton";
     private static final String WORKOUT_NAME = "#Name";
     private static final By CUSTOMIZE_SETTINGS = By.cssSelector("a[href='WorkoutCustomize.cshtml?id=']");
+    private static final By MODAL_VIEW = By.cssSelector(".modal-footer");
+    private static final By DELETE_CONFIRM_BUTTON = By.cssSelector("a:nth-of-type(1)");
+    private static final String DELETE_BUTTON = "#del-workout";
 
     @Override
     public void isOpen() {
@@ -40,8 +43,8 @@ public class AddWorkoutPage extends BasePage {
 
     @Step("Удалить тренировку")
     public void deleteWorkout() {
-        $("#del-workout").click();
-        $(".modal-footer").$("a:nth-of-type(1)").click();
+        $(DELETE_BUTTON).click();
+        $(MODAL_VIEW).$(DELETE_CONFIRM_BUTTON).click();
     }
 
 }

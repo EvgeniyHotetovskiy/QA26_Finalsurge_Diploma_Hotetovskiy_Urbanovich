@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.switchTo;
 
 public class ReportTests extends BaseTest {
     @Test(groups = {"withSuccessLogin", "regression", "smoke"})
-    public void positiveViewWorkoutReport() {
+    public void positiveViewWorkoutReport() throws InterruptedException {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setActivityType("Walk")
                 .build();
@@ -19,8 +19,8 @@ public class ReportTests extends BaseTest {
         calendarPage.clickAddWorkout();
         dashboardPage.clickWorkoutReportPage();
         reportPage.isOpen();
-        reportPage.startDate();
-        reportPage.endDate();
+        reportPage.setStartDate(-1);
+        reportPage.setEndDate(1);
         reportPage.clickViewReport();
         Assert.assertTrue(reportPage.reportViewDisplayed());
         dashboardPage.clickDetailsWourkout();
@@ -36,8 +36,8 @@ public class ReportTests extends BaseTest {
         dashboardPage.clickWorkoutReportPage();
         reportPage.isOpen();
         reportPage.clickZoneReport();
-        reportPage.startDate();
-        reportPage.endDate();
+        reportPage.setStartDate(-1);
+        reportPage.setEndDate(1);
         reportPage.clickViewReport();
         Assert.assertTrue(reportPage.zoneWorkoutError(), "*Please select a valid Activity Type.");
     }

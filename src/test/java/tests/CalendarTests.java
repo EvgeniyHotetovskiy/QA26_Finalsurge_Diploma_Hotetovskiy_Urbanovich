@@ -55,11 +55,11 @@ public class CalendarTests extends BaseTest {
                 .build();
         dashboardPage.clickCalendar();
         calendarPage.isOpen();
-        calendarPage.addTrainingLikeTable();
+        calendarPage.addTrainingLikeTable(1,1);
         calendarPage.activityTypeQuickSelect(quickWorkout);
         calendarPage.clickAddWorkout();
-        Assert.assertTrue(calendarPage.trainingTableIsDisplayed());
-        calendarPage.editTrainingLikeTable();
+        Assert.assertTrue(calendarPage.trainingTableIsDisplayed(1,1));
+        calendarPage.editTrainingLikeTable(1,1);
         wourkoutDetailsPage.isOpen();
         wourkoutDetailsPage.clickUpdateDWourkout();
         AddWorkout editWorkout = new AddWorkout.AddWorkoutBuilder()
@@ -84,8 +84,8 @@ public class CalendarTests extends BaseTest {
         wourkoutDetailsPage.clickSaveUpdateDWourkout();
         wourkoutDetailsPage.isOpen();
         dashboardPage.clickCalendar();
-        Assert.assertTrue(calendarPage.trainingTableIsDisplayed());
-        calendarPage.deleteWorkout();
+        Assert.assertTrue(calendarPage.trainingTableIsDisplayed(1,1));
+        calendarPage.deleteWorkout(1,1);
 
 
     }
@@ -98,7 +98,7 @@ public class CalendarTests extends BaseTest {
         dashboardPage.clickCalendar();
         calendarPage.isOpen();
         calendarPage.addQuickWorkoutWithButton();
-        calendarPage.setTomorrowWorkoutDate();
+        calendarPage.setWorkoutDate(1);
         calendarPage.activityTypeQuickSelect(quickWorkout);
         calendarPage.clickAddWorkout();
         dashboardPage.clickDashboardPage();
@@ -118,7 +118,7 @@ public class CalendarTests extends BaseTest {
         dashboardPage.clickCalendar();
         calendarPage.isOpen();
         calendarPage.addQuickWorkoutWithButton();
-        calendarPage.setYesterdayWorkoutDate();
+        calendarPage.setWorkoutDate(-1);
         calendarPage.activityTypeQuickSelect(quickWorkout);
         calendarPage.clickAddWorkout();
         dashboardPage.clickDashboardPage();
@@ -137,10 +137,10 @@ public class CalendarTests extends BaseTest {
     @Test(groups = {"regression", "smoke", "withSuccessLogin"})
     public void fileUploadTest() {
         calendarPage.isOpen();
-        calendarPage.clickUploadWorkout();
+        calendarPage.clickUploadWorkout(1,1);
         calendarPage.uploadWorkout();
         wourkoutDetailsPage.isOpen();
-        Assert.assertTrue(calendarPage.downloadButtonIsDisplayed());
+        Assert.assertTrue(calendarPage.downloadButtonIsClickable());
         wourkoutDetailsPage.clickUpdateDWourkout();
         addWorkoutPage.deleteWorkout();
 
@@ -149,7 +149,7 @@ public class CalendarTests extends BaseTest {
     @Test(groups = {"regression", "smoke", "withSuccessLogin"})
     public void fileDownloadTest() {
         calendarPage.isOpen();
-        calendarPage.clickUploadWorkout();
+        calendarPage.clickUploadWorkout(1,1);
         calendarPage.uploadWorkout();
         wourkoutDetailsPage.isOpen();
         calendarPage.fileDownload();

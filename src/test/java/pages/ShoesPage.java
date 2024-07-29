@@ -13,6 +13,17 @@ public class ShoesPage extends BasePage {
     private static final By ADD_SHOES_BUTTON = By.cssSelector("#saveButton");
     private static final By SHOES_PAGE = By.cssSelector("a[href='EquipmentShoes.cshtml']");
     private static final By EQUIPMENT_PAGE = By.cssSelector("a[href='Equipment.cshtml']");
+    private static final By EDIT_BUTTON = By.cssSelector(".btn.btn-mini");
+    private static final By DELETE_BUTTON = By.cssSelector("#del-shoe");
+    private static final String ADD_SHOE_NAME = "#ShoeName";
+    private static final By MODAL_VIEW = By.cssSelector(".modal-footer");
+    private static final By DELETE_CONFIRM_BUTTON = By.cssSelector("a:nth-of-type(1)");
+    private static final By DAY_CONTENT = By.cssSelector(".fc-day-content");
+    private static final By EVENT_ACTIVITY_TITLE = By.cssSelector(".fc-event-activity-title");
+    private static final String TABLE_DATE_SELECTION = "//table//tr[%d]//td[%d]";
+    private static final String DIST_ALERT_FIELD = ".label.label-inverse";
+    private static final String ERROR_MESSAGE = ".error";
+
 
     @Override
     public void isOpen() {
@@ -28,37 +39,34 @@ public class ShoesPage extends BasePage {
         $(ADD_SHOES_BUTTON).click();
     }
 
-    public boolean shoeNameError() {
-        $(".error").shouldHave(Condition.text("This field is required."));
+    public boolean getShoeNameError() {
+        $(ERROR_MESSAGE).shouldHave(Condition.text("This field is required."));
         return true;
     }
 
     public void clickEditButton() {
-        $(".btn.btn-mini").click();
+        $(EDIT_BUTTON).click();
     }
 
     public void addshoesWait() {
-        $(".btn.btn-mini").shouldBe(clickable);
+        $(EDIT_BUTTON).shouldBe(clickable);
     }
 
     public void clickDeleteButton() {
-        $("#del-shoe").click();
+        $(DELETE_BUTTON).click();
     }
 
-    public void addShoeName() {
-        $("#ShoeName").click();
-
-    }
 
     @Step("Выбор типа активности при быстром добавлении")
     public void quickAddshoesInput(AddShoes quickAddshoes) {
-        $("#ShoeName").setValue(quickAddshoes.getShoeName());
+        $(ADD_SHOE_NAME).setValue(quickAddshoes.getShoeName());
 
     }
 
     @Step("Получить данные {ShoeName} со страницы")
-    public AddShoes getShoesNameFromPage() {
-        String shoeNameFromPage = $(By.xpath("//table//tr//td[2]")).getText();
+    public AddShoes getShoesNameFromPage(int rowIndex, int columnIndex) {
+        By dynamicTableSelection = By.xpath(String.format(TABLE_DATE_SELECTION, rowIndex, columnIndex));
+        String shoeNameFromPage = $(dynamicTableSelection).getText();
         return new AddShoes.AddShoesBuilder()
                 .setShoeName(shoeNameFromPage)
                 .build();
@@ -67,8 +75,8 @@ public class ShoesPage extends BasePage {
     @Step("Удаление обуви")
     public void deleteShoes() {
         clickDeleteButton();
-        $(".modal-footer").$("a:nth-of-type(1)").click();
-        $(".fc-day-content").$(".fc-event-activity-title").shouldBe(disappear);
+        $(MODAL_VIEW).$(DELETE_CONFIRM_BUTTON).click();
+        $(DAY_CONTENT).$(EVENT_ACTIVITY_TITLE).shouldBe(disappear);
     }
 
     @Step("Редактирование обуви, добавление информации")
@@ -88,10 +96,10 @@ public class ShoesPage extends BasePage {
     }
 
     @Step("Проверка отображения информации после редактирования")
-    public boolean editInfoIsDisplayed() {
-        $(By.xpath("//table//tr//td[2]")).$(".label.label-inverse").shouldHave(Condition.text("Alert at: 500 km"));
-        return true;
-    }
+    public String editInfoIsDisplayed(int rowIndex, int columnIndex) {
+        By dynamicTableSelection = By.xpath(String.format(TABLE_DATE_SELECTION, rowIndex, columnIndex));
+        return $(dynamicTableSelection).$(DIST_ALERT_FIELD).text();
 
+    }
 
 }
