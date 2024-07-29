@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Smoke Tests" parallel="classes" thread-count="3">
     <test name="Test on chrome">
-        <parameter name="browserName" value="chrome"></parameter>
+        <parameter name="browserName" value="chrome"/>
         <groups>
             <run>
                 <include name="smoke"/>
