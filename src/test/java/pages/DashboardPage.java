@@ -70,6 +70,7 @@ public class DashboardPage extends BasePage {
         return true;
     }
 
+    @Step("Выйти из приложения")
     public void clickLogoutButton() {
         $(LOGOUT_BUTTON).click();
     }

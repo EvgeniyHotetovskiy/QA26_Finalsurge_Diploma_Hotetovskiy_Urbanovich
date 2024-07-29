@@ -5,6 +5,8 @@ import models.AddWorkout;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertTrue;
+
 
 public class CalendarTests extends BaseTest {
     @Test(groups = {"withSuccessLogin", "regression", "smoke"})
@@ -55,11 +57,11 @@ public class CalendarTests extends BaseTest {
                 .build();
         dashboardPage.clickCalendar();
         calendarPage.isOpen();
-        calendarPage.addTrainingLikeTable(1,1);
+        calendarPage.addQuickWorkoutFromCalendar();
         calendarPage.activityTypeQuickSelect(quickWorkout);
         calendarPage.clickAddWorkout();
-        Assert.assertTrue(calendarPage.trainingTableIsDisplayed(1,1));
-        calendarPage.editTrainingLikeTable(1,1);
+        Assert.assertTrue(calendarPage.workOutIsDisplayed());
+        calendarPage.editTraining();
         wourkoutDetailsPage.isOpen();
         wourkoutDetailsPage.clickUpdateDWourkout();
         AddWorkout editWorkout = new AddWorkout.AddWorkoutBuilder()
@@ -84,8 +86,8 @@ public class CalendarTests extends BaseTest {
         wourkoutDetailsPage.clickSaveUpdateDWourkout();
         wourkoutDetailsPage.isOpen();
         dashboardPage.clickCalendar();
-        Assert.assertTrue(calendarPage.trainingTableIsDisplayed(1,1));
-        calendarPage.deleteWorkout(1,1);
+        Assert.assertTrue(calendarPage.workOutIsDisplayed());
+        calendarPage.deleteTodayWorkout();
 
 
     }
@@ -137,8 +139,9 @@ public class CalendarTests extends BaseTest {
     @Test(groups = {"regression", "smoke", "withSuccessLogin"})
     public void fileUploadTest() {
         calendarPage.isOpen();
-        calendarPage.clickUploadWorkout(1,1);
-        calendarPage.uploadWorkout();
+        calendarPage.clickPlusFromCalendar();
+        calendarPage.clickUploadWorkout();
+        calendarPage.uploadWorkout("src/test/resources/example.tcx");
         wourkoutDetailsPage.isOpen();
         Assert.assertTrue(calendarPage.downloadButtonIsClickable());
         wourkoutDetailsPage.clickUpdateDWourkout();
@@ -149,10 +152,12 @@ public class CalendarTests extends BaseTest {
     @Test(groups = {"regression", "smoke", "withSuccessLogin"})
     public void fileDownloadTest() {
         calendarPage.isOpen();
-        calendarPage.clickUploadWorkout(1,1);
-        calendarPage.uploadWorkout();
+        calendarPage.clickPlusFromCalendar();
+        calendarPage.clickUploadWorkout();
+        calendarPage.uploadWorkout("src/test/resources/example.tcx");
         wourkoutDetailsPage.isOpen();
-        calendarPage.fileDownload();
+        String downloadedFileName = calendarPage.fileDownload();
+        assertTrue(downloadedFileName.endsWith(".tcx"));
         wourkoutDetailsPage.clickUpdateDWourkout();
         addWorkoutPage.deleteWorkout();
     }

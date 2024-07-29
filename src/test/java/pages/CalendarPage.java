@@ -1,8 +1,6 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.FileDownloadMode;
 import io.qameta.allure.Step;
 import models.AddWorkout;
 import org.openqa.selenium.By;
@@ -14,20 +12,18 @@ import java.time.format.DateTimeFormatter;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.switchTo;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 public class CalendarPage extends BasePage {
     private static final String QUICK_ADD_TOGGLE = "#QuickAddToggle";
     private static final By TODAY_DAY = By.cssSelector("[class*='fc-today']");
     private static final String PLUS_ON_THE_CALENDAR = ".icon-plus";
-    private static final String QUICK_ADD_FROM_THE_CALENDAR = ".quick-add";
+    private static final String QUICK_ADD_FROM_THE_CALENDAR = "a.quick-add";
     private static final String FULL_ADD_FROM_THE_CALENDAR = ".full-add";
     private static final String DATA_FIELD = "#WorkoutDate";
     private static final String ADD_WORKOUT = "#saveButton";
     private static final String ACTIVITY_TYPE = "#ActivityType";
     private static final By ALERT_ERROR = By.cssSelector(".alert.alert-error");
-    private static final String TABLE_DATE_SELECTION = "//table//tr[%d]//td[%d]";
     private static final By QUICK_UPLOAD_BUTTON = By.cssSelector("a.quick-upload");
     private static final By QUICK_DELETE_BUTTON = By.cssSelector("a.quick-delete");
     private static final By DAY_CONTENT = By.cssSelector(".fc-day-content");
@@ -49,10 +45,15 @@ public class CalendarPage extends BasePage {
         $(QUICK_ADD_TOGGLE).click();
     }
 
-    @Step("Нажать на добавление тренировки через кнопку 'Быстрое добавление' с календаря")
+    @Step("Нажать на добавление сегодняшней тренировки через кнопку 'Быстрое добавление' с календаря")
     public void addQuickWorkoutFromCalendar() {
-        $(PLUS_ON_THE_CALENDAR).click();
-        $(QUICK_ADD_FROM_THE_CALENDAR).click();
+        $(TODAY_DAY).$(PLUS_ON_THE_CALENDAR).hover().click();
+        $(TODAY_DAY).$(QUICK_ADD_FROM_THE_CALENDAR).shouldBe(visible).hover().click();
+    }
+
+    @Step("Нажать на 'плюс' с календаря")
+    public void clickPlusFromCalendar() {
+        $(TODAY_DAY).$(PLUS_ON_THE_CALENDAR).hover().click();
     }
 
     @Step("Удаление сегодняшней тренировки")
@@ -92,38 +93,12 @@ public class CalendarPage extends BasePage {
         return true;
     }
 
-
-    @Step("добавить тренировку (таблица)")
-    public void addTrainingLikeTable(int rowIndex, int columnIndex) {
-        By dynamicTableSelection = By.xpath(String.format(TABLE_DATE_SELECTION, rowIndex, columnIndex));
-        $(dynamicTableSelection).hover();
-        addQuickWorkoutFromCalendar();
-    }
-
-    @Step("Созданная тренировка отобразилась в календаре")
-    public boolean trainingTableIsDisplayed(int rowIndex, int columnIndex) {
-
-        By dynamicTableSelection = By.xpath(String.format(TABLE_DATE_SELECTION, rowIndex, columnIndex));
-        return $(dynamicTableSelection).$(EVENT_ACTIVITY_TITLE).isDisplayed();
-    }
-
     @Step("Редактировать тренировку")
-    public void editTrainingLikeTable(int rowIndex, int columnIndex) {
-        By dynamicTableSelection = By.xpath(String.format(TABLE_DATE_SELECTION, rowIndex, columnIndex));
-        $(dynamicTableSelection).$(EVENT_ACTIVITY_TITLE).click();
-        $(dynamicTableSelection).$(FULL_VIEW_BUTTON).click();
-
+    public void editTraining() {
+        $(EVENT_ACTIVITY_TITLE).click();
+        $(FULL_VIEW_BUTTON).click();
     }
 
-
-    @Step("Удалить тренировку(таблица)")
-    public void deleteWorkout(int rowIndex, int columnIndex) {
-        By dynamicTableSelection = By.xpath(String.format(TABLE_DATE_SELECTION, rowIndex, columnIndex));
-        $(dynamicTableSelection).$(EVENT_ACTIVITY_TITLE).click();
-        $(QUICK_DELETE_BUTTON).click();
-        $(MODAL_VIEW).$(DELETE_CONFIRM_BUTTON).click();
-        $(dynamicTableSelection).$(EVENT_ACTIVITY_TITLE).shouldBe(disappear);
-    }
 
     @Step("Установить дату тренировки")
     public void setWorkoutDate(int daysOffset) {
@@ -135,21 +110,16 @@ public class CalendarPage extends BasePage {
     }
 
     @Step("Нажать кнопку 'Загрузить тренировку'")
-    public void clickUploadWorkout(int rowIndex, int columnIndex) {
-        By dynamicTableSelection = By.xpath(String.format(TABLE_DATE_SELECTION, rowIndex, columnIndex));
-        $(dynamicTableSelection).hover();
-        $(PLUS_ON_THE_CALENDAR).click();
-        $(QUICK_UPLOAD_BUTTON).click();
-
-
+    public void clickUploadWorkout() {
+        $(TODAY_DAY).$(QUICK_UPLOAD_BUTTON).click();
     }
 
-    public void uploadWorkout() {
+    @Step("Загрузить тренировку")
+    public void uploadWorkout(String relativePathToFile) {
 
         switchTo().frame($("#WorkoutUploadiFrame"));
         $(ADD_WORKOUT).shouldHave(clickable);
         $(WORKOUT_NAME).setValue("Upload Workout");
-        String relativePathToFile = "src/test/resources/example.tcx";
         String pathToFile = System.getProperty("user.dir") + File.separator + relativePathToFile;
         File fileUpload = new File(pathToFile);
         $("input[type='file']").uploadFile(fileUpload);
@@ -157,15 +127,17 @@ public class CalendarPage extends BasePage {
         switchTo().defaultContent();
     }
 
+    @Step("нажать на кнопку 'Скачать тренировку'")
     public boolean downloadButtonIsClickable() {
         $(DOWNLOAD_BUTTON).shouldBe(clickable);
         return true;
     }
 
-    public void fileDownload() {
-        Configuration.fileDownload = FileDownloadMode.FOLDER;
+    @Step("Скачать тренировку")
+    public String fileDownload() {
         File downloadedFile = $(DOWNLOAD_BUTTON).download();
-        assertThat(downloadedFile).hasName("BIKE-2024-06-30.tcx");
+        return downloadedFile.getName();
+
     }
 }
 

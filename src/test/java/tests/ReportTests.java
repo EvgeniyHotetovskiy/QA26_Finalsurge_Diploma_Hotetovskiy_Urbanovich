@@ -31,7 +31,7 @@ public class ReportTests extends BaseTest {
         calendarPage.isOpen();
     }
 
-    @Test(groups = {"withSuccessLogin",  "regression"})
+    @Test(groups = {"withSuccessLogin", "regression"})
     public void negativeViewZoneReport() {
         dashboardPage.clickWorkoutReportPage();
         reportPage.isOpen();

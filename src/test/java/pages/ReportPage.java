@@ -25,7 +25,7 @@ public class ReportPage extends BasePage {
 
 
     @Step("Установить дату")
-    public void setDate(int daysOffset, String selector) {
+    private void setDate(int daysOffset, String selector) {
         LocalDate targetDate = LocalDate.now().plusDays(daysOffset);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
         String formattedDate = targetDate.format(formatter);
@@ -43,10 +43,12 @@ public class ReportPage extends BasePage {
     }
 
 
+    @Step("Просмотреть ViewReport")
     public void clickViewReport() {
         $(VIEW_REPORT).click();
     }
 
+    @Step("Просмотреть ZoneReport")
     public void clickZoneReport() {
         $(ZONE_REPORT).click();
     }

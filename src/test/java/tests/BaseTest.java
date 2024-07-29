@@ -1,6 +1,7 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.ITestContext;
@@ -45,6 +46,7 @@ public class BaseTest {
         Configuration.browserSize = "1920x1080";
         Configuration.browser = browser;
         Configuration.timeout = 10000;
+        Configuration.fileDownload = FileDownloadMode.FOLDER;
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
 
     }
@@ -53,13 +55,14 @@ public class BaseTest {
     public void preConditionForGroup() {
         loginPage.login(BASE_LOGIN, BASE_PASSWORD);
     }
+
     @BeforeMethod(alwaysRun = true)
     public void preCondition() {
         open("/");
     }
 
-    @AfterMethod (alwaysRun = true)
-    public void postCondition(){
+    @AfterMethod(alwaysRun = true)
+    public void postCondition() {
         closeWebDriver();
     }
 }

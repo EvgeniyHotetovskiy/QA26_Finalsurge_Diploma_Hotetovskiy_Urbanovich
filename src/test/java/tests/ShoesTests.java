@@ -16,12 +16,11 @@ public class ShoesTests extends BaseTest {
         shoesPage.isOpen();
         shoesPage.quickAddshoesInput(quickAddshoes);
         shoesPage.clickAddShoesButton();
-        AddShoes actualAddShoes = shoesPage.getShoesNameFromPage(1,2);
+        AddShoes actualAddShoes = shoesPage.getShoesNameFromPage();
         shoesPage.addshoesWait();
         Assert.assertEquals(actualAddShoes.getShoeName(), quickAddshoes.getShoeName(), "Имя обуви не совпадает с ожидаемым");
         shoesPage.clickEditButton();
         shoesPage.deleteShoes();
-
     }
 
     @Test(groups = {"regression", "withSuccessLogin"})
@@ -50,10 +49,9 @@ public class ShoesTests extends BaseTest {
         shoesPage.editDetailsShoes(editAddshoes);
         shoesPage.clickAddShoesButton();
         shoesPage.addshoesWait();
-        Assert.assertEquals(shoesPage.editInfoIsDisplayed(1,2),"Alert at: 500 km");
+        Assert.assertEquals(shoesPage.editInfoIsDisplayed(), "Alert at: 500 km");
         shoesPage.clickEditButton();
         shoesPage.deleteShoes();
-
     }
 
 
@@ -65,5 +63,4 @@ public class ShoesTests extends BaseTest {
         shoesPage.clickAddShoesButton();
         Assert.assertTrue(shoesPage.getShoeNameError());
     }
-
 }

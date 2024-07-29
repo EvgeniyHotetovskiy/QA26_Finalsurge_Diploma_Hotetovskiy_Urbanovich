@@ -46,7 +46,7 @@ public class CalculatorTests extends BaseTest {
         dashboardPage.clickCalculator();
         calculatorPage.isOpen();
         calculatorPage.clickTinmanCalc();
-        calculatorPage.selectTinmanRaceDistance();
+        calculatorPage.selectTinmanRaceDistance("10 km");
         calculatorPage.inputIntencityCalcTime(intensityCalc);
         calculatorPage.clickGenderButton();
         calculatorPage.clickCalcPaces();
@@ -62,7 +62,7 @@ public class CalculatorTests extends BaseTest {
         dashboardPage.clickCalculator();
         calculatorPage.isOpen();
         calculatorPage.clickTinmanCalc();
-        calculatorPage.selectTinmanRaceDistance();
+        calculatorPage.selectTinmanRaceDistance("10 km");
         calculatorPage.inputIntencityCalcTime(intensityCalc);
         calculatorPage.clickGenderButton();
         calculatorPage.clickCalcPaces();

@@ -46,8 +46,8 @@ public class CalculatorPage extends BasePage {
     }
 
     @Step("Заполнение калькулятора")
-    public void selectTinmanRaceDistance() {
-        $(RACE_DISTANCE).selectOption("10 km");
+    public void selectTinmanRaceDistance(String distance) {
+        $(RACE_DISTANCE).selectOption(distance);
     }
 
     @Step("Нажать рассчитать")

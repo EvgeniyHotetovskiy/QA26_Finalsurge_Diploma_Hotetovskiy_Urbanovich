@@ -20,7 +20,7 @@ public class ShoesPage extends BasePage {
     private static final By DELETE_CONFIRM_BUTTON = By.cssSelector("a:nth-of-type(1)");
     private static final By DAY_CONTENT = By.cssSelector(".fc-day-content");
     private static final By EVENT_ACTIVITY_TITLE = By.cssSelector(".fc-event-activity-title");
-    private static final String TABLE_DATE_SELECTION = "//table//tr[%d]//td[%d]";
+    private static final By TABLE_DATE_SELECTION =By.xpath( "//table//tr//td[2]");
     private static final String DIST_ALERT_FIELD = ".label.label-inverse";
     private static final String ERROR_MESSAGE = ".error";
 
@@ -30,6 +30,7 @@ public class ShoesPage extends BasePage {
         $(ADD_SHOES_BUTTON).shouldBe(clickable);
     }
 
+    @Step("Перейти на страницу с обувью")
     public void clickShoesPage() {
         $(EQUIPMENT_PAGE).hover();
         $(SHOES_PAGE).click();
@@ -44,6 +45,7 @@ public class ShoesPage extends BasePage {
         return true;
     }
 
+    @Step("Нажать на кнопку 'редактировать'")
     public void clickEditButton() {
         $(EDIT_BUTTON).click();
     }
@@ -52,6 +54,7 @@ public class ShoesPage extends BasePage {
         $(EDIT_BUTTON).shouldBe(clickable);
     }
 
+    @Step("Нажать на кнопку 'удалить'")
     public void clickDeleteButton() {
         $(DELETE_BUTTON).click();
     }
@@ -64,9 +67,8 @@ public class ShoesPage extends BasePage {
     }
 
     @Step("Получить данные {ShoeName} со страницы")
-    public AddShoes getShoesNameFromPage(int rowIndex, int columnIndex) {
-        By dynamicTableSelection = By.xpath(String.format(TABLE_DATE_SELECTION, rowIndex, columnIndex));
-        String shoeNameFromPage = $(dynamicTableSelection).getText();
+    public AddShoes getShoesNameFromPage() {
+        String shoeNameFromPage = $(TABLE_DATE_SELECTION).getText();
         return new AddShoes.AddShoesBuilder()
                 .setShoeName(shoeNameFromPage)
                 .build();
@@ -96,9 +98,8 @@ public class ShoesPage extends BasePage {
     }
 
     @Step("Проверка отображения информации после редактирования")
-    public String editInfoIsDisplayed(int rowIndex, int columnIndex) {
-        By dynamicTableSelection = By.xpath(String.format(TABLE_DATE_SELECTION, rowIndex, columnIndex));
-        return $(dynamicTableSelection).$(DIST_ALERT_FIELD).text();
+    public String editInfoIsDisplayed() {
+        return $(TABLE_DATE_SELECTION).$(DIST_ALERT_FIELD).text();
 
     }
 
