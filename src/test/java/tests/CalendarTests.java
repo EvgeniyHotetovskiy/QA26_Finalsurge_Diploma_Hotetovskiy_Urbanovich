@@ -31,7 +31,7 @@ public class CalendarTests extends BaseTest {
         calendarPage.isOpen();
         calendarPage.addQuickWorkoutWithButton();
         calendarPage.clickAddWorkout();
-        Assert.assertEquals(calendarPage.activityTypeError(), "*Please select a valid Activity Type.");
+        Assert.assertEquals(calendarPage.activityTypeError(), "×\n" + "Please fix the following errors:\n" + "*Please select a valid Activity Type.");
     }
 
     @Test(groups = {"withSuccessLogin", "regression", "smoke"})
