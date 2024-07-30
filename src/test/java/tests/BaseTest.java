@@ -45,7 +45,7 @@ public class BaseTest {
         Configuration.baseUrl = BASE_URL;
         Configuration.browserSize = "1920x1080";
         Configuration.browser = browser;
-       // Configuration.headless = true;
+        Configuration.headless = true;
         Configuration.timeout = 10000;
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
