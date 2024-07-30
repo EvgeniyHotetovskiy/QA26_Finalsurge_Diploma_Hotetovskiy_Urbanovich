@@ -1,6 +1,5 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.clickable;
@@ -16,10 +15,8 @@ public class LogoutPage extends BasePage {
         $(ACCOUNT_LOGIN_BUTTON).shouldBe(clickable);
     }
 
-    public boolean successfullLogOutIsDisplayed() {
-        $(LOGOUT_MESSAGE).shouldHave(Condition.text("You have been successfully logged out of the system."));
-        return true;
-
+    public String successfullLogOutIsDisplayed() {
+        return $(LOGOUT_MESSAGE).getText();
     }
 
 }

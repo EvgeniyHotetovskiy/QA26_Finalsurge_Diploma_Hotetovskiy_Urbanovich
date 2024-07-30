@@ -31,7 +31,7 @@ public class CalendarTests extends BaseTest {
         calendarPage.isOpen();
         calendarPage.addQuickWorkoutWithButton();
         calendarPage.clickAddWorkout();
-        Assert.assertTrue(calendarPage.activityTypeError(), "*Please select a valid Activity Type.");
+        Assert.assertEquals(calendarPage.activityTypeError(), "*Please select a valid Activity Type.");
     }
 
     @Test(groups = {"withSuccessLogin", "regression", "smoke"})
@@ -132,7 +132,7 @@ public class CalendarTests extends BaseTest {
         addWorkoutPage.deleteWorkout();
         calendarPage.isOpen();
         dashboardPage.clickDashboardPage();
-        Assert.assertTrue(dashboardPage.pastWorkoutEmpty());
+        Assert.assertEquals(dashboardPage.pastWorkoutEmpty(), "You have no past workouts within the last 14 days.");
 
     }
 
@@ -141,9 +141,10 @@ public class CalendarTests extends BaseTest {
         calendarPage.isOpen();
         calendarPage.clickPlusFromCalendar();
         calendarPage.clickUploadWorkout();
-        calendarPage.uploadWorkout("src/test/resources/example.tcx");
+        calendarPage.uploadWorkout("src/test/resources/example.tcx", "Upload Workout");
         wourkoutDetailsPage.isOpen();
-        Assert.assertTrue(calendarPage.downloadButtonIsClickable());
+        calendarPage.downloadButtonIsClickable();
+        Assert.assertEquals(wourkoutDetailsPage.EditWourkoutisDisplayed(), "Upload Workout");
         wourkoutDetailsPage.clickUpdateDWourkout();
         addWorkoutPage.deleteWorkout();
 
@@ -154,7 +155,7 @@ public class CalendarTests extends BaseTest {
         calendarPage.isOpen();
         calendarPage.clickPlusFromCalendar();
         calendarPage.clickUploadWorkout();
-        calendarPage.uploadWorkout("src/test/resources/example.tcx");
+        calendarPage.uploadWorkout("src/test/resources/example.tcx", "Upload Workout");
         wourkoutDetailsPage.isOpen();
         String downloadedFileName = calendarPage.fileDownload();
         assertTrue(downloadedFileName.endsWith(".tcx"));

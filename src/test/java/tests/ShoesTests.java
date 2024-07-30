@@ -38,8 +38,8 @@ public class ShoesTests extends BaseTest {
         AddShoes editAddshoes = new AddShoes.AddShoesBuilder()
                 .setBrand("adidas")
                 .setModel("GAZELLE")
-                .setCost("150")
-                .setDatePurchased("07/02/2024")
+                .setCost("150.00")
+                .setDatePurchased("7/2/2024")
                 .setSize("9")
                 .setStartDistance("0")
                 .setStartDistancetype("km")
@@ -48,12 +48,14 @@ public class ShoesTests extends BaseTest {
                 .build();
         shoesPage.editDetailsShoes(editAddshoes);
         shoesPage.clickAddShoesButton();
-        shoesPage.addshoesWait();
-        Assert.assertEquals(shoesPage.editInfoIsDisplayed(), "Alert at: 500 km");
         shoesPage.clickEditButton();
+        AddShoes actualAddShoes = shoesPage.getInfoFromPage();
+        shoesPage.addshoesWait();
+        System.out.println("Actual Add Shoes: " + actualAddShoes);
+        System.out.println("Expected Edit Add Shoes: " + editAddshoes);
+        Assert.assertEquals(actualAddShoes, editAddshoes, "значения не совпадают с ожидаемым");
         shoesPage.deleteShoes();
     }
-
 
     @Test(groups = {"regression", "smoke", "withSuccessLogin"})
     public void negativeAddShoesTest() {
@@ -61,6 +63,6 @@ public class ShoesTests extends BaseTest {
         shoesPage.clickShoesPage();
         shoesPage.isOpen();
         shoesPage.clickAddShoesButton();
-        Assert.assertTrue(shoesPage.getShoeNameError());
+        Assert.assertEquals(shoesPage.getShoeNameError(), "This field is required.");
     }
 }

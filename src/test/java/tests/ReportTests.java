@@ -39,6 +39,7 @@ public class ReportTests extends BaseTest {
         reportPage.setStartDate(-1);
         reportPage.setEndDate(1);
         reportPage.clickViewReport();
-        Assert.assertTrue(reportPage.zoneWorkoutError(), "*Please select a valid Activity Type.");
+        Assert.assertEquals(reportPage.zoneWorkoutError(), "×\n" + "Please fix the following errors:\n" + "*Please select a valid Activity Zone Type.");
     }
+
 }

@@ -1,6 +1,5 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import models.AddWorkout;
 import org.openqa.selenium.By;
@@ -33,6 +32,8 @@ public class CalendarPage extends BasePage {
     private static final By MODAL_VIEW = By.cssSelector(".modal-footer");
     private static final By DELETE_CONFIRM_BUTTON = By.cssSelector("a:nth-of-type(1)");
     private static final String WORKOUT_NAME = "#Name";
+    private static final String WORKOUT_UPLOAD_FRAME = "#WorkoutUploadiFrame";
+    private static final By INPUT_FILE = By.cssSelector("input[type='file']");
 
 
     @Override
@@ -88,9 +89,8 @@ public class CalendarPage extends BasePage {
     }
 
     @Step("Ошибка при незаполненом типе активности")
-    public boolean activityTypeError() {
-        $(ALERT_ERROR).shouldHave(Condition.text("*Please select a valid Activity Type."));
-        return true;
+    public String activityTypeError() {
+        return $(ALERT_ERROR).getText();
     }
 
     @Step("Редактировать тренировку")
@@ -115,22 +115,21 @@ public class CalendarPage extends BasePage {
     }
 
     @Step("Загрузить тренировку")
-    public void uploadWorkout(String relativePathToFile) {
+    public void uploadWorkout(String relativePathToFile, String Workout) {
 
-        switchTo().frame($("#WorkoutUploadiFrame"));
+        switchTo().frame($(WORKOUT_UPLOAD_FRAME));
         $(ADD_WORKOUT).shouldHave(clickable);
-        $(WORKOUT_NAME).setValue("Upload Workout");
+        $(WORKOUT_NAME).setValue(Workout);
         String pathToFile = System.getProperty("user.dir") + File.separator + relativePathToFile;
         File fileUpload = new File(pathToFile);
-        $("input[type='file']").uploadFile(fileUpload);
+        $(INPUT_FILE).uploadFile(fileUpload);
         $(ADD_WORKOUT).click();
         switchTo().defaultContent();
     }
 
     @Step("нажать на кнопку 'Скачать тренировку'")
-    public boolean downloadButtonIsClickable() {
+    public void downloadButtonIsClickable() {
         $(DOWNLOAD_BUTTON).shouldBe(clickable);
-        return true;
     }
 
     @Step("Скачать тренировку")
@@ -140,6 +139,5 @@ public class CalendarPage extends BasePage {
 
     }
 }
-
 
 

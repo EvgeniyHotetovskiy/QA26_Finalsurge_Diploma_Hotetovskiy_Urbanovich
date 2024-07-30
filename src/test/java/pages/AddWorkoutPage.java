@@ -14,6 +14,9 @@ public class AddWorkoutPage extends BasePage {
     private static final By MODAL_VIEW = By.cssSelector(".modal-footer");
     private static final By DELETE_CONFIRM_BUTTON = By.cssSelector("a:nth-of-type(1)");
     private static final String DELETE_BUTTON = "#del-workout";
+    private static final String DETAILS = ".formSep";
+    private static final By FINDNAME = By.cssSelector("div:nth-of-type(3)");
+
 
     @Override
     public void isOpen() {
@@ -38,7 +41,7 @@ public class AddWorkoutPage extends BasePage {
 
     @Step("получить название тренировки")
     public String getWorkoutName() {
-        return $(".formSep").$("div:nth-of-type(3)").text();
+        return $(DETAILS).$(FINDNAME).text();
     }
 
     @Step("Удалить тренировку")

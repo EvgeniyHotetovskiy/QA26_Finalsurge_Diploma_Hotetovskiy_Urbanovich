@@ -33,7 +33,8 @@ public class CalculatorTests extends BaseTest {
         calculatorPage.selectEvent();
         calculatorPage.inputIntencityCalcTime(intensityCalc);
         calculatorPage.clickCalcPaces();
-        Assert.assertTrue(calculatorPage.intencityCalcError());
+
+        Assert.assertEquals(calculatorPage.intencityCalcError(), "×\n" + "Please fix the following errors:\n" + "*Please enter an Integer value for Seconds.");
     }
 
     @Test(groups = {"withSuccessLogin", "regression"})
@@ -66,7 +67,7 @@ public class CalculatorTests extends BaseTest {
         calculatorPage.inputIntencityCalcTime(intensityCalc);
         calculatorPage.clickGenderButton();
         calculatorPage.clickCalcPaces();
-        Assert.assertTrue(calculatorPage.intencityCalcError(), "the message about an empty field is not displayed");
+        Assert.assertEquals(calculatorPage.intencityCalcError(), "×\n" + "Please fix the following errors:\n" + "*Please enter an Integer value for Seconds.");
     }
 
 

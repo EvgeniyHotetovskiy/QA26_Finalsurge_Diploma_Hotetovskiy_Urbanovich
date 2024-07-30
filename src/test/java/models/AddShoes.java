@@ -13,6 +13,8 @@ public class AddShoes {
     private final String startDistancetype;
     private final String alertDistance;
     private final String alertDistancetype;
+
+
     private AddShoes(AddShoesBuilder addShoesBuilder) {
         this.shoeName = addShoesBuilder.shoeName;
         this.brand = addShoesBuilder.brand;
@@ -79,6 +81,23 @@ public class AddShoes {
     public int hashCode() {
         return Objects.hash(shoeName, brand, model, cost, datePurchased, size, startDistance, startDistancetype, alertDistance, alertDistancetype);
     }
+
+    @Override
+    public String toString() {
+        return "AddShoes{" +
+                "shoeName='" + shoeName + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", cost='" + cost + '\'' +
+                ", datePurchased='" + datePurchased + '\'' +
+                ", size='" + size + '\'' +
+                ", startDistance='" + startDistance + '\'' +
+                ", startDistancetype='" + startDistancetype + '\'' +
+                ", alertDistance='" + alertDistance + '\'' +
+                ", alertDistancetype='" + alertDistancetype + '\'' +
+                '}';
+    }
+
     public static class AddShoesBuilder {
         private String shoeName;
         private String brand;
@@ -90,6 +109,9 @@ public class AddShoes {
         private String startDistancetype;
         private String alertDistance;
         private String alertDistancetype;
+        public AddShoesBuilder(){
+
+        }
 
         public AddShoesBuilder setShoeName(String shoeName) {
             this.shoeName = shoeName;

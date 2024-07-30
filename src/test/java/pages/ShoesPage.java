@@ -1,6 +1,6 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
+
 import io.qameta.allure.Step;
 import models.AddShoes;
 import org.openqa.selenium.By;
@@ -20,9 +20,19 @@ public class ShoesPage extends BasePage {
     private static final By DELETE_CONFIRM_BUTTON = By.cssSelector("a:nth-of-type(1)");
     private static final By DAY_CONTENT = By.cssSelector(".fc-day-content");
     private static final By EVENT_ACTIVITY_TITLE = By.cssSelector(".fc-event-activity-title");
-    private static final By TABLE_DATE_SELECTION =By.xpath( "//table//tr//td[2]");
+    private static final By TABLE_DATE_SELECTION = By.xpath("//table//tr//td[2]");
     private static final String DIST_ALERT_FIELD = ".label.label-inverse";
     private static final String ERROR_MESSAGE = ".error";
+    private static final String SELECT_SHOE_BRAND = "#s2id_ShoeBrand";
+    private static final String SHOE_BRAND = "#ShoeBrand";
+    private static final String SHOE_MODEL = "#ShoeModel";
+    private static final String SHOE_COST = "#ShoeCost";
+    private static final String SHOE_DATE = "#ShoeDate";
+    private static final String SHOE_SIZE = "#ShoeSize";
+    private static final String START_DIST = "#StartDist";
+    private static final String DIST_TYPE = "#DistType";
+    private static final String DIST_ALERT = "#DistAlert";
+    private static final String DIST_ALERT_TYPE = "#DistAlertType";
 
 
     @Override
@@ -40,9 +50,8 @@ public class ShoesPage extends BasePage {
         $(ADD_SHOES_BUTTON).click();
     }
 
-    public boolean getShoeNameError() {
-        $(ERROR_MESSAGE).shouldHave(Condition.text("This field is required."));
-        return true;
+    public String getShoeNameError() {
+        return $(ERROR_MESSAGE).getText();
     }
 
     @Step("Нажать на кнопку 'редактировать'")
@@ -83,24 +92,32 @@ public class ShoesPage extends BasePage {
 
     @Step("Редактирование обуви, добавление информации")
     public void editDetailsShoes(AddShoes editAddshoes) {
-        $("#s2id_ShoeBrand").click();
-        $("#ShoeBrand").selectOption(editAddshoes.getBrand());
-
-        $("#ShoeModel").setValue(editAddshoes.getModel());
-        $("#ShoeCost").setValue(editAddshoes.getCost());
-        $("#ShoeDate").setValue(editAddshoes.getDatePurchased());
-        $("#ShoeSize").selectOption(editAddshoes.getSize());
-
-        $("#StartDist").setValue(editAddshoes.getStartDistance());
-        $("#DistType").selectOption(editAddshoes.getStartDistancetype());
-        $("#DistAlert").setValue(editAddshoes.getAlertDistance());
-        $("#DistAlertType").selectOption(editAddshoes.getAlertDistancetype());
+        $(SELECT_SHOE_BRAND).click();
+        $(SHOE_BRAND).selectOption(editAddshoes.getBrand());
+        $(SHOE_MODEL).setValue(editAddshoes.getModel());
+        $(SHOE_COST).setValue(editAddshoes.getCost());
+        $(SHOE_DATE).setValue(editAddshoes.getDatePurchased());
+        $(SHOE_SIZE).selectOption(editAddshoes.getSize());
+        $(START_DIST).setValue(editAddshoes.getStartDistance());
+        $(DIST_TYPE).selectOption(editAddshoes.getStartDistancetype());
+        $(DIST_ALERT).setValue(editAddshoes.getAlertDistance());
+        $(DIST_ALERT_TYPE).selectOption(editAddshoes.getAlertDistancetype());
     }
 
-    @Step("Проверка отображения информации после редактирования")
-    public String editInfoIsDisplayed() {
-        return $(TABLE_DATE_SELECTION).$(DIST_ALERT_FIELD).text();
-
+    @Step("Получить данные со страницы")
+    public AddShoes getInfoFromPage() {
+        AddShoes resultAddShoes = new AddShoes.AddShoesBuilder()
+                .setBrand($(SHOE_BRAND).getText())
+                .setModel($(SHOE_MODEL).getValue())
+                .setCost($(SHOE_COST).getValue())
+                .setDatePurchased($(SHOE_DATE).getValue())
+                .setSize($(SHOE_SIZE).getText())
+                .setStartDistance($(START_DIST).getValue())
+                .setStartDistancetype($(DIST_TYPE).getText())
+                .setAlertDistance($(DIST_ALERT).getValue())
+                .setAlertDistancetype($(DIST_ALERT_TYPE).getText())
+                .build();
+        return resultAddShoes;
     }
 
 }

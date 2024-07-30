@@ -1,6 +1,5 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
@@ -57,8 +56,8 @@ public class ReportPage extends BasePage {
         return $(ACTIVITY_TYPE).$(By.partialLinkText("Walk")).isDisplayed();
     }
 
-    public boolean zoneWorkoutError() {
-        $(ALERT_ERROR).shouldHave(Condition.text("*Please select a valid Activity Zone Type."));
-        return true;
+    public String zoneWorkoutError() {
+        return $(ALERT_ERROR).getText();
     }
 }
+
