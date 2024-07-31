@@ -6,9 +6,9 @@ on:
    - cron: '00 10 * * 3,5'
    - cron: '40 10 2-31/2 * 3'
   push:
-    branches: [ "master" ]
+    branches: [ "master", "development" ]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master", "development" ]
   workflow_dispatch:
     inputs:
       browser:
@@ -42,7 +42,7 @@ jobs:
         cache: maven
     
     - name: Run Smoke Tests
-      run: mvn -B clean test -Dsuite=smoke -Dbrowser=${{github.event.inputs.browser || 'edge'}}
+      run: mvn -B clean test -DsuiteName=smoke -Dbrowser=${{github.event.inputs.browser || 'edge'}}
 
     - name: Generate Allure Report
       uses: simple-elf/allure-report-action@master
@@ -73,7 +73,7 @@ jobs:
         cache: maven
     
     - name: Run Smoke Tests
-      run: mvn -B clean test -Dsuite=regression -Dbrowser=${{github.event.inputs.browser || 'chrome'}}
+      run: mvn -B clean test -DsuiteName=regression -Dbrowser=${{github.event.inputs.browser || 'chrome'}}
 
     - name: Generate Allure Report
       uses: simple-elf/allure-report-action@master
