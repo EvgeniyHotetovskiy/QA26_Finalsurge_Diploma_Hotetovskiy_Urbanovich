@@ -11,14 +11,6 @@ on:
     branches: ["master", "development" ]
   workflow_dispatch:
     inputs:
-      browser:
-        description: 'Choose a browser'
-        required: true
-        default: 'chrome'
-        options:
-          - chrome
-          - edge
-          - firefox
       suite:
         description: 'Choose a browser'
         required: true
@@ -42,7 +34,7 @@ jobs:
         cache: maven
     
     - name: Run Smoke Tests
-      run: mvn -B clean test -DsuiteName=smoke -Dbrowser=${{github.event.inputs.browser || 'edge'}}
+      run: mvn -B clean test -DsuiteName=smoke 
 
     - name: Generate Allure Report
       uses: simple-elf/allure-report-action@master
@@ -73,7 +65,37 @@ jobs:
         cache: maven
     
     - name: Run Smoke Tests
-      run: mvn -B clean test -DsuiteName=regression -Dbrowser=${{github.event.inputs.browser || 'chrome'}}
+      run: mvn -B clean test -DsuiteName=regression
+
+    - name: Generate Allure Report
+      uses: simple-elf/allure-report-action@master
+      if: always()
+      id: allure-report
+      with:
+        allure_results: target/allure-results
+        allure_report: target/allure-report
+
+    - name: Upload Allure Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report-${{github.run_id}}
+        path: target/allure-report
+        
+  regression_alltime_suite:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17 
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'corretto'
+        cache: maven
+    
+    - name: Run Smoke Tests
+      run: mvn -B clean test -DsuiteName=regression
 
     - name: Generate Allure Report
       uses: simple-elf/allure-report-action@master
