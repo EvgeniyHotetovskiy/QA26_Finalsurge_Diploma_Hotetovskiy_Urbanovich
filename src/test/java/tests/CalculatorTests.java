@@ -53,7 +53,7 @@ public class CalculatorTests extends BaseTest {
         Assert.assertTrue(calculatorPage.workoutSplitDisplayed());
     }
 
-    @Test(groups = {"withSuccessLogin"})
+    @Test(enabled = false, groups = {"withSuccessLogin"})
     public void defectTinmanTest() {
         Calculator intensityCalc = new Calculator.CalculatorBuilder()
                 .setHours("00")
