@@ -1,5 +1,9 @@
 package pages;
 
-public class BasePage {
 
+public abstract class BasePage {
+    public BasePage() {
+    }
+
+    public abstract void isOpen();
 }

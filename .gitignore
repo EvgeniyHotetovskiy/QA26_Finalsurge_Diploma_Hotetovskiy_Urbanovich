@@ -31,6 +31,7 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
+.allure/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
@@ -39,3 +40,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/.allure/
