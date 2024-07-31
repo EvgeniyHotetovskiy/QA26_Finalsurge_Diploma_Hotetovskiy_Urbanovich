@@ -37,12 +37,8 @@ jobs:
       run: mvn -B clean test -DsuiteName=smoke 
 
     - name: Generate Allure Report
-      uses: simple-elf/allure-report-action@master
       if: always()
-      id: allure-report
-      with:
-        allure_results: target/allure-results
-        allure_report: target/allure-report
+      run: mvn allure:report
 
     - name: Upload Allure Report
       if: always()
@@ -68,12 +64,8 @@ jobs:
       run: mvn -B clean test -DsuiteName=regression
 
     - name: Generate Allure Report
-      uses: simple-elf/allure-report-action@master
       if: always()
-      id: allure-report
-      with:
-        allure_results: target/allure-results
-        allure_report: target/allure-report
+      run: mvn allure:report
 
     - name: Upload Allure Report
       if: always()
@@ -82,7 +74,7 @@ jobs:
         name: allure-report-${{github.run_id}}
         path: target/allure-report
         
-  regression_alltime_suite:
+  alltime_alltests_suite:
     runs-on: windows-latest
 
     steps:
@@ -95,15 +87,11 @@ jobs:
         cache: maven
     
     - name: Run Smoke Tests
-      run: mvn -B clean test -DsuiteName=regression
+      run: mvn -B clean test -DsuiteName=allTests
 
     - name: Generate Allure Report
-      uses: simple-elf/allure-report-action@master
       if: always()
-      id: allure-report
-      with:
-        allure_results: target/allure-results
-        allure_report: target/allure-report
+      run: mvn allure:report
 
     - name: Upload Allure Report
       if: always()
