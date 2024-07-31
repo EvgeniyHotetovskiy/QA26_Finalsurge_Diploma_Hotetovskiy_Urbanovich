@@ -54,7 +54,7 @@ public class DashboardPage extends BasePage {
         return $(UPCOMING_WORKOUTS_VIEW).$(WORKOUT_DETAILS_VIEW).exists();
     }
 
-    public void clickDetailsWourkout() {
+    public void clickDetailsWorkout() {
         $(WORKOUT_DETAILS_PAGE).click();
     }
 

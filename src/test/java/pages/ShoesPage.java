@@ -20,7 +20,6 @@ public class ShoesPage extends BasePage {
     private static final By DAY_CONTENT = By.cssSelector(".fc-day-content");
     private static final By EVENT_ACTIVITY_TITLE = By.cssSelector(".fc-event-activity-title");
     private static final By TABLE_DATE_SELECTION = By.xpath("//table//tr//td[2]");
-    private static final String DIST_ALERT_FIELD = ".label.label-inverse";
     private static final String ERROR_MESSAGE = ".error";
     private static final String SELECT_SHOE_BRAND = "#s2id_ShoeBrand";
     private static final String SHOE_BRAND = "#ShoeBrand";
@@ -57,7 +56,7 @@ public class ShoesPage extends BasePage {
         $(EDIT_BUTTON).click();
     }
 
-    public void addshoesWait() {
+    public void addShoesWait() {
         $(EDIT_BUTTON).shouldBe(clickable);
     }
 
@@ -68,7 +67,7 @@ public class ShoesPage extends BasePage {
 
 
     @Step("Выбор типа активности при быстром добавлении")
-    public void quickAddshoesInput(AddShoes quickAddshoes) {
+    public void quickAddShoesInput(AddShoes quickAddshoes) {
         $(ADD_SHOE_NAME).setValue(quickAddshoes.getShoeName());
 
     }

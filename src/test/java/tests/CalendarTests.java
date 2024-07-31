@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertTrue;
 
 public class CalendarTests extends BaseTest {
-    @Test(groups = {"withSuccessLogin", "regression", "smoke"})
+    @Test(groups = {"withSuccessLogin", "regression", "smoke", "deleteTodayWorkout"})
     public void positiveAddQuickWorkOutTodayByButton() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setActivityType("Run")
@@ -17,8 +17,6 @@ public class CalendarTests extends BaseTest {
         calendarPage.activityTypeQuickSelect(quickWorkout);
         calendarPage.clickAddWorkout();
         Assert.assertTrue(calendarPage.workOutIsDisplayed());
-        calendarPage.deleteTodayWorkout();
-        Assert.assertFalse(calendarPage.workOutIsDisplayed());
     }
 
     @Test(groups = {"withSuccessLogin", "regression"})
@@ -30,7 +28,7 @@ public class CalendarTests extends BaseTest {
         Assert.assertEquals(calendarPage.activityTypeError(), "×\n" + "Please fix the following errors:\n" + "*Please select a valid Activity Type.");
     }
 
-    @Test(groups = {"withSuccessLogin", "regression", "smoke"})
+    @Test(groups = {"withSuccessLogin", "regression", "smoke", "deleteTodayWorkout"})
     public void addFullFromCalendar() {
         AddWorkout fullWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setName("morning run")
@@ -43,10 +41,9 @@ public class CalendarTests extends BaseTest {
         addWorkoutPage.clickAddWorkout();
         Assert.assertEquals(addWorkoutPage.getWorkoutName(), fullWorkout.getName());
         dashboardPage.clickCalendar();
-        calendarPage.deleteTodayWorkout();
     }
 
-    @Test(groups = {"withSuccessLogin", "regression"})
+    @Test(groups = {"withSuccessLogin", "regression", "deleteTodayWorkout"})
     public void editWorkout() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setActivityType("Swim")
@@ -58,8 +55,8 @@ public class CalendarTests extends BaseTest {
         calendarPage.clickAddWorkout();
         Assert.assertTrue(calendarPage.workOutIsDisplayed());
         calendarPage.editTraining();
-        wourkoutDetailsPage.isOpen();
-        wourkoutDetailsPage.clickUpdateDWourkout();
+        workoutDetailsPage.isOpen();
+        workoutDetailsPage.clickUpdateDWorkout();
         AddWorkout editWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setTimeOfDay("7:00 PM")
                 .setName("workout edit test")
@@ -77,16 +74,15 @@ public class CalendarTests extends BaseTest {
                 .setkCal("300")
                 .setSaveToLibrary(true)
                 .build();
-        wourkoutDetailsPage.editWourkout(editWorkout);
-        wourkoutDetailsPage.clickSaveUpdateDWourkout();
-        wourkoutDetailsPage.isOpen();
+        workoutDetailsPage.editWorkout(editWorkout);
+        workoutDetailsPage.clickSaveUpdateDWorkout();
+        workoutDetailsPage.isOpen();
         dashboardPage.clickCalendar();
         Assert.assertTrue(calendarPage.workOutIsDisplayed());
-        calendarPage.deleteTodayWorkout();
     }
 
-    @Test(groups = {"withSuccessLogin", "regression"})
-    public void viewFutureTrainingFromDashbordPage() {
+    @Test(groups = {"withSuccessLogin", "regression", "deleteWorkout"})
+    public void viewFutureTrainingFromDashboardPage() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setActivityType("Bike")
                 .build();
@@ -99,14 +95,12 @@ public class CalendarTests extends BaseTest {
         dashboardPage.clickDashboardPage();
         dashboardPage.clickUpcomingWorkouts();
         Assert.assertTrue(dashboardPage.upcomingWorkoutsExists());
-        dashboardPage.clickDetailsWourkout();
-        wourkoutDetailsPage.isOpen();
-        wourkoutDetailsPage.clickUpdateDWourkout();
-        addWorkoutPage.deleteWorkout();
+        dashboardPage.clickDetailsWorkout();
+        workoutDetailsPage.isOpen();
     }
 
     @Test(groups = {"withSuccessLogin", "regression"})
-    public void viewPastTrainingFromDashbordPage() {
+    public void viewPastTrainingFromDashboardPage() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setActivityType("Walk")
                 .build();
@@ -119,38 +113,34 @@ public class CalendarTests extends BaseTest {
         dashboardPage.clickDashboardPage();
         dashboardPage.clickPastWorkouts();
         Assert.assertTrue(dashboardPage.pastWorkoutsExists());
-        dashboardPage.clickDetailsWourkout();
-        wourkoutDetailsPage.isOpen();
-        wourkoutDetailsPage.clickUpdateDWourkout();
+        dashboardPage.clickDetailsWorkout();
+        workoutDetailsPage.isOpen();
+        workoutDetailsPage.clickUpdateDWorkout();
         addWorkoutPage.deleteWorkout();
         calendarPage.isOpen();
         dashboardPage.clickDashboardPage();
         Assert.assertEquals(dashboardPage.pastWorkoutEmpty(), "You have no past workouts within the last 14 days.");
     }
 
-    @Test(groups = {"regression", "smoke", "withSuccessLogin"})
+    @Test(groups = {"regression", "smoke", "withSuccessLogin", "deleteWorkout"})
     public void fileUploadTest() {
         calendarPage.isOpen();
         calendarPage.clickPlusFromCalendar();
         calendarPage.clickUploadWorkout();
         calendarPage.uploadWorkout("src/test/resources/example.tcx", "Upload Workout");
-        wourkoutDetailsPage.isOpen();
+        workoutDetailsPage.isOpen();
         calendarPage.downloadButtonIsClickable();
-        Assert.assertEquals(wourkoutDetailsPage.EditWourkoutisDisplayed(), "Upload Workout");
-        wourkoutDetailsPage.clickUpdateDWourkout();
-        addWorkoutPage.deleteWorkout();
+        Assert.assertEquals(workoutDetailsPage.EditWorkoutIsDisplayed(), "Upload Workout");
     }
 
-    @Test(groups = {"regression", "smoke", "withSuccessLogin"})
+    @Test(groups = {"regression", "smoke", "withSuccessLogin", "deleteWorkout"})
     public void fileDownloadTest() {
         calendarPage.isOpen();
         calendarPage.clickPlusFromCalendar();
         calendarPage.clickUploadWorkout();
         calendarPage.uploadWorkout("src/test/resources/example.tcx", "Upload Workout");
-        wourkoutDetailsPage.isOpen();
+        workoutDetailsPage.isOpen();
         String downloadedFileName = calendarPage.fileDownload();
         assertTrue(downloadedFileName.endsWith(".tcx"));
-        wourkoutDetailsPage.clickUpdateDWourkout();
-        addWorkoutPage.deleteWorkout();
     }
 }

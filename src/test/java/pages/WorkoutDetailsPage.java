@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Condition.clickable;
 import static com.codeborne.selenide.Selenide.$;
 
-public class WourkoutDetailsPage extends BasePage {
+public class WorkoutDetailsPage extends BasePage {
     private static final String UPDATE_WORKOUT = ".dropdown-toggle";
     private static final String SAVE_UPDATE_WORKOUT = "#saveButton";
     private static final By WORKOUT_NAME = By.xpath(".//div[@class='formSep']//div[3]");
@@ -31,15 +31,15 @@ public class WourkoutDetailsPage extends BasePage {
         $(UPDATE_WORKOUT).shouldBe(clickable);
     }
 
-    public void clickUpdateDWourkout() {
+    public void clickUpdateDWorkout() {
         $(UPDATE_WORKOUT).click();
     }
 
-    public void clickSaveUpdateDWourkout() {
+    public void clickSaveUpdateDWorkout() {
         $(SAVE_UPDATE_WORKOUT).click();
     }
 
-    public void editWourkout(AddWorkout editWorkout) {
+    public void editWorkout(AddWorkout editWorkout) {
         $(WORKOUT_TIME).setValue(editWorkout.getTimeOfDay());
         $(NAME).setValue(editWorkout.getName());
         $(DESC).setValue(editWorkout.getDescription());
@@ -57,7 +57,7 @@ public class WourkoutDetailsPage extends BasePage {
         $(SAVE_LIBRARY).click();
     }
 
-    public String EditWourkoutisDisplayed() {
+    public String EditWorkoutIsDisplayed() {
         return $(WORKOUT_NAME).getText();
     }
 

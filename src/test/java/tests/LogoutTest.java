@@ -8,7 +8,7 @@ public class LogoutTest extends BaseTest {
     public void positiveLogoutTest() {
         calendarPage.isOpen();
         dashboardPage.clickLogoutButton();
-        Assert.assertEquals(logoutPage.successfullLogOutIsDisplayed(), "You have been successfully logged out of the system.");
+        Assert.assertEquals(logoutPage.successfulLogOutIsDisplayed(), "You have been successfully logged out of the system.");
     }
 }
 

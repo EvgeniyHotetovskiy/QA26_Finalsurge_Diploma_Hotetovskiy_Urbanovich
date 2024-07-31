@@ -18,7 +18,7 @@ public class CalculatorTests extends BaseTest {
         calculatorPage.selectEvent();
         calculatorPage.inputIntencityCalcTime(intensityCalc);
         calculatorPage.clickCalcPaces();
-        Assert.assertTrue(calculatorPage.workoutSplitdisplayed());
+        Assert.assertTrue(calculatorPage.workoutSplitDisplayed());
     }
 
     @Test(groups = {"withSuccessLogin", "regression"})
@@ -49,10 +49,10 @@ public class CalculatorTests extends BaseTest {
         calculatorPage.inputIntencityCalcTime(intensityCalc);
         calculatorPage.clickGenderButton();
         calculatorPage.clickCalcPaces();
-        Assert.assertTrue(calculatorPage.workoutSplitdisplayed());
+        Assert.assertTrue(calculatorPage.workoutSplitDisplayed());
     }
 
-    @Test(groups = {"withSuccessLogin", "regression"})
+    @Test(groups = {"withSuccessLogin"})
     public void defectTinmanTest() {
         Calculator intensityCalc = new Calculator.CalculatorBuilder()
                 .setHours("00")

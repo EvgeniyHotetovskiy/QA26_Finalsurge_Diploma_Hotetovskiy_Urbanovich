@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 
 public class ShoesTests extends BaseTest {
-    @Test(groups = {"regression", "smoke", "withSuccessLogin"})
+    @Test(groups = {"regression", "smoke", "withSuccessLogin", "deleteShoes"})
     public void positiveAddShoesTest() {
         AddShoes quickAddshoes = new AddShoes.AddShoesBuilder()
                 .setShoeName("running shoes")
@@ -14,16 +14,15 @@ public class ShoesTests extends BaseTest {
         calendarPage.isOpen();
         shoesPage.clickShoesPage();
         shoesPage.isOpen();
-        shoesPage.quickAddshoesInput(quickAddshoes);
+        shoesPage.quickAddShoesInput(quickAddshoes);
         shoesPage.clickAddShoesButton();
         AddShoes actualAddShoes = shoesPage.getShoesNameFromPage();
-        shoesPage.addshoesWait();
+        shoesPage.addShoesWait();
         Assert.assertEquals(actualAddShoes.getShoeName(), quickAddshoes.getShoeName(), "Имя обуви не совпадает с ожидаемым");
         shoesPage.clickEditButton();
-        shoesPage.deleteShoes();
     }
 
-    @Test(groups = {"regression", "withSuccessLogin"})
+    @Test(groups = {"regression", "withSuccessLogin", "deleteShoes"})
     public void positiveEditShoesTest() {
         AddShoes quickAddshoes = new AddShoes.AddShoesBuilder()
                 .setShoeName("favorite sneakers")
@@ -31,7 +30,7 @@ public class ShoesTests extends BaseTest {
         calendarPage.isOpen();
         shoesPage.clickShoesPage();
         shoesPage.isOpen();
-        shoesPage.quickAddshoesInput(quickAddshoes);
+        shoesPage.quickAddShoesInput(quickAddshoes);
         shoesPage.clickAddShoesButton();
         shoesPage.clickEditButton();
         shoesPage.isOpen();
@@ -50,11 +49,10 @@ public class ShoesTests extends BaseTest {
         shoesPage.clickAddShoesButton();
         shoesPage.clickEditButton();
         AddShoes actualAddShoes = shoesPage.getInfoFromPage();
-        shoesPage.addshoesWait();
+        shoesPage.addShoesWait();
         System.out.println("Actual Add Shoes: " + actualAddShoes);
         System.out.println("Expected Edit Add Shoes: " + editAddshoes);
         Assert.assertEquals(actualAddShoes, editAddshoes, "значения не совпадают с ожидаемым");
-        shoesPage.deleteShoes();
     }
 
     @Test(groups = {"regression", "smoke", "withSuccessLogin"})

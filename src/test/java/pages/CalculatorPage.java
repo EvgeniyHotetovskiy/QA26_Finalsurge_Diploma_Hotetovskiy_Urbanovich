@@ -62,7 +62,7 @@ public class CalculatorPage extends BasePage {
         $(GENDER_BUTTON).click();
     }
 
-    public boolean workoutSplitdisplayed() {
+    public boolean workoutSplitDisplayed() {
         return $(RACE_SPLIT).should(exist).isDisplayed();
     }
 

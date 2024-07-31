@@ -21,7 +21,7 @@ public class BaseTest {
     protected CalendarPage calendarPage;
     protected AddWorkoutPage addWorkoutPage;
     protected DashboardPage dashboardPage;
-    protected WourkoutDetailsPage wourkoutDetailsPage;
+    protected WorkoutDetailsPage workoutDetailsPage;
     protected ReportPage reportPage;
     protected CalculatorPage calculatorPage;
     protected LogoutPage logoutPage;
@@ -36,7 +36,7 @@ public class BaseTest {
         this.calendarPage = new CalendarPage();
         this.addWorkoutPage = new AddWorkoutPage();
         this.dashboardPage = new DashboardPage();
-        this.wourkoutDetailsPage = new WourkoutDetailsPage();
+        this.workoutDetailsPage = new WorkoutDetailsPage();
         this.reportPage = new ReportPage();
         this.calculatorPage = new CalculatorPage();
         this.logoutPage = new LogoutPage();
@@ -45,7 +45,7 @@ public class BaseTest {
         Configuration.baseUrl = BASE_URL;
         Configuration.browserSize = "1920x1080";
         Configuration.browser = browser;
-        Configuration.headless = true;
+        Configuration.headless = Boolean.parseBoolean(PropertyReader.getProperty("headless"));
         Configuration.timeout = 10000;
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
@@ -60,6 +60,22 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     public void preCondition() {
         open("/");
+    }
+
+    @AfterMethod(onlyForGroups = "deleteShoes", alwaysRun = true)
+    public void deleteShoes() {
+        shoesPage.deleteShoes();
+    }
+
+    @AfterMethod(onlyForGroups = "deleteWorkout", alwaysRun = true)
+    public void deleteWorkout() {
+        workoutDetailsPage.clickUpdateDWorkout();
+        addWorkoutPage.deleteWorkout();
+    }
+
+    @AfterMethod(onlyForGroups = "deleteTodayWorkout", alwaysRun = true)
+    public void deleteTodayWorkout() {
+        calendarPage.deleteTodayWorkout();
     }
 
     @AfterMethod(alwaysRun = true)

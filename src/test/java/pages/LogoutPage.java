@@ -15,7 +15,7 @@ public class LogoutPage extends BasePage {
         $(ACCOUNT_LOGIN_BUTTON).shouldBe(clickable);
     }
 
-    public String successfullLogOutIsDisplayed() {
+    public String successfulLogOutIsDisplayed() {
         return $(LOGOUT_MESSAGE).getText();
     }
 
