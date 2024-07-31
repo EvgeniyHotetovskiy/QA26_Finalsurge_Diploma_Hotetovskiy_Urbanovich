@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 public class CalculatorTests extends BaseTest {
     @Test(groups = {"withSuccessLogin", "regression", "smoke"})
     public void positiveIntensityTest() {
-
         Calculator intensityCalc = new Calculator.CalculatorBuilder()
                 .setHours("00")
                 .setMinuts("20")
@@ -33,7 +32,6 @@ public class CalculatorTests extends BaseTest {
         calculatorPage.selectEvent();
         calculatorPage.inputIntencityCalcTime(intensityCalc);
         calculatorPage.clickCalcPaces();
-
         Assert.assertEquals(calculatorPage.intencityCalcError(), "×\n" + "Please fix the following errors:\n" + "*Please enter an Integer value for Seconds.");
     }
 
@@ -69,6 +67,4 @@ public class CalculatorTests extends BaseTest {
         calculatorPage.clickCalcPaces();
         Assert.assertEquals(calculatorPage.intencityCalcError(), "×\n" + "Please fix the following errors:\n" + "*Please enter an Integer value for Seconds.");
     }
-
-
 }

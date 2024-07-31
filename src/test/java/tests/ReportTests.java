@@ -41,5 +41,4 @@ public class ReportTests extends BaseTest {
         reportPage.clickViewReport();
         Assert.assertEquals(reportPage.zoneWorkoutError(), "×\n" + "Please fix the following errors:\n" + "*Please select a valid Activity Zone Type.");
     }
-
 }

@@ -103,7 +103,6 @@ public class CalendarPage extends BasePage {
     @Step("Установить дату тренировки")
     public void setWorkoutDate(int daysOffset) {
         LocalDate targetDate = LocalDate.now().plusDays(daysOffset);
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
         String formattedDate = targetDate.format(formatter);
         $(DATA_FIELD).setValue(formattedDate);
@@ -136,7 +135,6 @@ public class CalendarPage extends BasePage {
     public String fileDownload() {
         File downloadedFile = $(DOWNLOAD_BUTTON).download();
         return downloadedFile.getName();
-
     }
 }
 

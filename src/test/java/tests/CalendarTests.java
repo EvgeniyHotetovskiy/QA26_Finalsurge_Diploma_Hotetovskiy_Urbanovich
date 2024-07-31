@@ -1,12 +1,9 @@
 package tests;
 
-
 import models.AddWorkout;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertTrue;
-
 
 public class CalendarTests extends BaseTest {
     @Test(groups = {"withSuccessLogin", "regression", "smoke"})
@@ -22,7 +19,6 @@ public class CalendarTests extends BaseTest {
         Assert.assertTrue(calendarPage.workOutIsDisplayed());
         calendarPage.deleteTodayWorkout();
         Assert.assertFalse(calendarPage.workOutIsDisplayed());
-
     }
 
     @Test(groups = {"withSuccessLogin", "regression"})
@@ -65,7 +61,6 @@ public class CalendarTests extends BaseTest {
         wourkoutDetailsPage.isOpen();
         wourkoutDetailsPage.clickUpdateDWourkout();
         AddWorkout editWorkout = new AddWorkout.AddWorkoutBuilder()
-
                 .setTimeOfDay("7:00 PM")
                 .setName("workout edit test")
                 .setDescription("evening freestyle swimming in the pool")
@@ -88,8 +83,6 @@ public class CalendarTests extends BaseTest {
         dashboardPage.clickCalendar();
         Assert.assertTrue(calendarPage.workOutIsDisplayed());
         calendarPage.deleteTodayWorkout();
-
-
     }
 
     @Test(groups = {"withSuccessLogin", "regression"})
@@ -133,7 +126,6 @@ public class CalendarTests extends BaseTest {
         calendarPage.isOpen();
         dashboardPage.clickDashboardPage();
         Assert.assertEquals(dashboardPage.pastWorkoutEmpty(), "You have no past workouts within the last 14 days.");
-
     }
 
     @Test(groups = {"regression", "smoke", "withSuccessLogin"})
@@ -147,7 +139,6 @@ public class CalendarTests extends BaseTest {
         Assert.assertEquals(wourkoutDetailsPage.EditWourkoutisDisplayed(), "Upload Workout");
         wourkoutDetailsPage.clickUpdateDWourkout();
         addWorkoutPage.deleteWorkout();
-
     }
 
     @Test(groups = {"regression", "smoke", "withSuccessLogin"})
@@ -162,5 +153,4 @@ public class CalendarTests extends BaseTest {
         wourkoutDetailsPage.clickUpdateDWourkout();
         addWorkoutPage.deleteWorkout();
     }
-
 }

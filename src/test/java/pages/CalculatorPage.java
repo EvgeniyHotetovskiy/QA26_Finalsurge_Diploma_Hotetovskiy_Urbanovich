@@ -63,9 +63,7 @@ public class CalculatorPage extends BasePage {
     }
 
     public boolean workoutSplitdisplayed() {
-
         return $(RACE_SPLIT).should(exist).isDisplayed();
-
     }
 
     @Step("Ошибка при незаполненом типе активности")

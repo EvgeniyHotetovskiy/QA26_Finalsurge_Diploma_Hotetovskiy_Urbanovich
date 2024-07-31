@@ -1,6 +1,5 @@
 package pages;
 
-
 import io.qameta.allure.Step;
 import models.AddShoes;
 import org.openqa.selenium.By;
@@ -33,7 +32,6 @@ public class ShoesPage extends BasePage {
     private static final String DIST_TYPE = "#DistType";
     private static final String DIST_ALERT = "#DistAlert";
     private static final String DIST_ALERT_TYPE = "#DistAlertType";
-
 
     @Override
     public void isOpen() {
@@ -119,5 +117,4 @@ public class ShoesPage extends BasePage {
                 .build();
         return resultAddShoes;
     }
-
 }

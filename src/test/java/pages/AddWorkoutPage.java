@@ -49,5 +49,4 @@ public class AddWorkoutPage extends BasePage {
         $(DELETE_BUTTON).click();
         $(MODAL_VIEW).$(DELETE_CONFIRM_BUTTON).click();
     }
-
 }

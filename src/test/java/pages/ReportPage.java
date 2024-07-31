@@ -22,7 +22,6 @@ public class ReportPage extends BasePage {
         $(VIEW_REPORT).shouldBe(clickable);
     }
 
-
     @Step("Установить дату")
     private void setDate(int daysOffset, String selector) {
         LocalDate targetDate = LocalDate.now().plusDays(daysOffset);
@@ -40,7 +39,6 @@ public class ReportPage extends BasePage {
     public void setEndDate(int daysOffset) {
         setDate(daysOffset, WORKOUT_END_DATE_FIELD);
     }
-
 
     @Step("Просмотреть ViewReport")
     public void clickViewReport() {
