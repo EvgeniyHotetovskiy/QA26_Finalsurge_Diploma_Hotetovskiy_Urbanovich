@@ -1,24 +1,36 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation. tu
-
-name: Selenide CI with Maven to development
+name: Selenide CI with Maven to Final Surge Tests
 
 on:
+  schedule:
+   - cron: '40 00 1-31/2 * *'
+   - cron: '00 10 * * 3,5'
+   - cron: '40 10 2-31/2 * 3'
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
   workflow_dispatch:
+    inputs:
+      browser:
+        description: 'Choose a browser'
+        required: true
+        default: 'chrome'
+        options:
+          - chrome
+          - edge
+          - firefox
+      suite:
+        description: 'Choose a browser'
+        required: true
+        default: 'chrome'
+        options:
+          - smoke
+          - regression    
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
+  smoke_suite:
+    runs-on: windows-latest
+    if: github.event.schedule == '40 00 1-31/2 * *' || github.event.inputs.suite == 'smoke'
 
     steps:
     - uses: actions/checkout@v4
@@ -26,13 +38,11 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin'
+        distribution: 'corretto'
         cache: maven
-    - uses: browser-actions/setup-chrome@latest
-    - run: chrome --version
     
-    - name: Build with Maven
-      run: mvn -B clean test
+    - name: Run Smoke Tests
+      run: mvn -B clean test -Dsuite=smoke -Dbrowser=${{github.event.inputs.browser || 'edge'}}
 
     - name: Generate Allure Report
       uses: simple-elf/allure-report-action@master
@@ -42,8 +52,40 @@ jobs:
         allure_results: target/allure-results
         allure_report: target/allure-report
 
-    - name: Use the Upload Artifact GitHub Action
-      uses: actions/upload-artifact@v2
+    - name: Upload Allure Report
+      if: always()
+      uses: actions/upload-artifact@v4
       with:
-        name: report
+        name: allure-report-${{github.run_id}}
+        path: target/allure-report
+
+  regression_suite:
+    runs-on: windows-latest
+    if: github.event.schedule == '00 10 * * 3,5' || github.event.inputs.suite == 'regression'
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17 
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'corretto'
+        cache: maven
+    
+    - name: Run Smoke Tests
+      run: mvn -B clean test -Dsuite=regression -Dbrowser=${{github.event.inputs.browser || 'chrome'}}
+
+    - name: Generate Allure Report
+      uses: simple-elf/allure-report-action@master
+      if: always()
+      id: allure-report
+      with:
+        allure_results: target/allure-results
+        allure_report: target/allure-report
+
+    - name: Upload Allure Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report-${{github.run_id}}
         path: target/allure-report
