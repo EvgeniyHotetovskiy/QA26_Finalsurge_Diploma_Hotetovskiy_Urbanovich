@@ -89,7 +89,7 @@ public class CalendarPage extends BasePage {
     }
 
     @Step("Ошибка при незаполненом типе активности")
-    public String activityTypeError() {
+    public String getActivityTypeError() {
         return $(ALERT_ERROR).getText();
     }
 

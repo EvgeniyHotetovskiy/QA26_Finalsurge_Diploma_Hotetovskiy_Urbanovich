@@ -59,7 +59,6 @@ public class DashboardPage extends BasePage {
     }
 
     public void clickPastWorkouts() {
-
         $(PAST_WORKOUTS).click();
     }
 
@@ -67,7 +66,7 @@ public class DashboardPage extends BasePage {
         return $(PAST_WORKOUTS).$(WORKOUT_DETAILS_VIEW).exists();
     }
 
-    public String pastWorkoutEmpty() {
+    public String getPastWorkout() {
         return $(PAST_WORKOUTS).$(PAST_WORKOUTS_DETAILS).getText();
     }
 

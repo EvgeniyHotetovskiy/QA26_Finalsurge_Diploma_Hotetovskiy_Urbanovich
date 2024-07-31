@@ -67,7 +67,7 @@ public class CalculatorPage extends BasePage {
     }
 
     @Step("Ошибка при незаполненом типе активности")
-    public String intencityCalcError() {
+    public String getIntencityCalcError() {
         return $(ALERT_ERROR).text();
     }
 }

@@ -31,7 +31,7 @@ public class WorkoutDetailsPage extends BasePage {
         $(UPDATE_WORKOUT).shouldBe(clickable);
     }
 
-    public void clickUpdateDWorkout() {
+    public void clickUpdateWorkout() {
         $(UPDATE_WORKOUT).click();
     }
 
@@ -57,7 +57,7 @@ public class WorkoutDetailsPage extends BasePage {
         $(SAVE_LIBRARY).click();
     }
 
-    public String EditWorkoutIsDisplayed() {
+    public String getEditWorkoutName() {
         return $(WORKOUT_NAME).getText();
     }
 

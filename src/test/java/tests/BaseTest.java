@@ -69,7 +69,7 @@ public class BaseTest {
 
     @AfterMethod(onlyForGroups = "deleteWorkout", alwaysRun = true)
     public void deleteWorkout() {
-        workoutDetailsPage.clickUpdateDWorkout();
+        workoutDetailsPage.clickUpdateWorkout();
         addWorkoutPage.deleteWorkout();
     }
 

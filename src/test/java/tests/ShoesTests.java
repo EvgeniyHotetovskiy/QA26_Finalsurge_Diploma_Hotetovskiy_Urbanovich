@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 
 
 public class ShoesTests extends BaseTest {
+    private static final String SHOE_NAME_ERROR =  "This field is required.";
+
     @Test(groups = {"regression", "smoke", "withSuccessLogin", "deleteShoes"})
     public void positiveAddShoesTest() {
         AddShoes quickAddshoes = new AddShoes.AddShoesBuilder()
@@ -50,8 +52,6 @@ public class ShoesTests extends BaseTest {
         shoesPage.clickEditButton();
         AddShoes actualAddShoes = shoesPage.getInfoFromPage();
         shoesPage.addShoesWait();
-        System.out.println("Actual Add Shoes: " + actualAddShoes);
-        System.out.println("Expected Edit Add Shoes: " + editAddshoes);
         Assert.assertEquals(actualAddShoes, editAddshoes, "значения не совпадают с ожидаемым");
     }
 
@@ -61,6 +61,6 @@ public class ShoesTests extends BaseTest {
         shoesPage.clickShoesPage();
         shoesPage.isOpen();
         shoesPage.clickAddShoesButton();
-        Assert.assertEquals(shoesPage.getShoeNameError(), "This field is required.");
+        Assert.assertEquals(shoesPage.getShoeNameError(),SHOE_NAME_ERROR);
     }
 }

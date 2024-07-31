@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 
 
 public class CalculatorTests extends BaseTest {
+    private static final String INTENSITY_CALC_ERROR_MESSAGE = "×\n" + "Please fix the following errors:\n" + "*Please enter an Integer value for Seconds.";
+
     @Test(groups = {"withSuccessLogin", "regression", "smoke"})
     public void positiveIntensityTest() {
         Calculator intensityCalc = new Calculator.CalculatorBuilder()
@@ -23,7 +25,6 @@ public class CalculatorTests extends BaseTest {
 
     @Test(groups = {"withSuccessLogin", "regression"})
     public void negativeIntensityTest() {
-
         Calculator intensityCalc = new Calculator.CalculatorBuilder()
                 .setMinuts("20")
                 .build();
@@ -32,7 +33,7 @@ public class CalculatorTests extends BaseTest {
         calculatorPage.selectEvent();
         calculatorPage.inputIntencityCalcTime(intensityCalc);
         calculatorPage.clickCalcPaces();
-        Assert.assertEquals(calculatorPage.intencityCalcError(), "×\n" + "Please fix the following errors:\n" + "*Please enter an Integer value for Seconds.");
+        Assert.assertEquals(calculatorPage.getIntencityCalcError(), INTENSITY_CALC_ERROR_MESSAGE);
     }
 
     @Test(groups = {"withSuccessLogin", "regression"})
@@ -65,6 +66,6 @@ public class CalculatorTests extends BaseTest {
         calculatorPage.inputIntencityCalcTime(intensityCalc);
         calculatorPage.clickGenderButton();
         calculatorPage.clickCalcPaces();
-        Assert.assertEquals(calculatorPage.intencityCalcError(), "×\n" + "Please fix the following errors:\n" + "*Please enter an Integer value for Seconds.");
+        Assert.assertEquals(calculatorPage.getIntencityCalcError(),INTENSITY_CALC_ERROR_MESSAGE);
     }
 }

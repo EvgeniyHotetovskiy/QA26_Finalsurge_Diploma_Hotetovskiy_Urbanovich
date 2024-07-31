@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertTrue;
 
 public class CalendarTests extends BaseTest {
+    private static final String ACTIVITY_TYPE_ERROR =  "×\n" + "Please fix the following errors:\n" + "*Please select a valid Activity Type.";
+    private static final String INFO_FROM_DASHBOARD = "You have no past workouts within the last 14 days.";
     @Test(groups = {"withSuccessLogin", "regression", "smoke", "deleteTodayWorkout"})
     public void positiveAddQuickWorkOutTodayByButton() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
@@ -25,7 +27,7 @@ public class CalendarTests extends BaseTest {
         calendarPage.isOpen();
         calendarPage.addQuickWorkoutWithButton();
         calendarPage.clickAddWorkout();
-        Assert.assertEquals(calendarPage.activityTypeError(), "×\n" + "Please fix the following errors:\n" + "*Please select a valid Activity Type.");
+        Assert.assertEquals(calendarPage.getActivityTypeError(), ACTIVITY_TYPE_ERROR);
     }
 
     @Test(groups = {"withSuccessLogin", "regression", "smoke", "deleteTodayWorkout"})
@@ -56,7 +58,7 @@ public class CalendarTests extends BaseTest {
         Assert.assertTrue(calendarPage.workOutIsDisplayed());
         calendarPage.editTraining();
         workoutDetailsPage.isOpen();
-        workoutDetailsPage.clickUpdateDWorkout();
+        workoutDetailsPage.clickUpdateWorkout();
         AddWorkout editWorkout = new AddWorkout.AddWorkoutBuilder()
                 .setTimeOfDay("7:00 PM")
                 .setName("workout edit test")
@@ -115,11 +117,11 @@ public class CalendarTests extends BaseTest {
         Assert.assertTrue(dashboardPage.pastWorkoutsExists());
         dashboardPage.clickDetailsWorkout();
         workoutDetailsPage.isOpen();
-        workoutDetailsPage.clickUpdateDWorkout();
+        workoutDetailsPage.clickUpdateWorkout();
         addWorkoutPage.deleteWorkout();
         calendarPage.isOpen();
         dashboardPage.clickDashboardPage();
-        Assert.assertEquals(dashboardPage.pastWorkoutEmpty(), "You have no past workouts within the last 14 days.");
+        Assert.assertEquals(dashboardPage.getPastWorkout(), INFO_FROM_DASHBOARD);
     }
 
     @Test(groups = {"regression", "smoke", "withSuccessLogin", "deleteWorkout"})
@@ -130,7 +132,7 @@ public class CalendarTests extends BaseTest {
         calendarPage.uploadWorkout("src/test/resources/example.tcx", "Upload Workout");
         workoutDetailsPage.isOpen();
         calendarPage.downloadButtonIsClickable();
-        Assert.assertEquals(workoutDetailsPage.EditWorkoutIsDisplayed(), "Upload Workout");
+        Assert.assertEquals(workoutDetailsPage.getEditWorkoutName(), "Upload Workout");
     }
 
     @Test(groups = {"regression", "smoke", "withSuccessLogin", "deleteWorkout"})

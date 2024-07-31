@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import static com.codeborne.selenide.Selenide.switchTo;
 
 public class ReportTests extends BaseTest {
+    private static final String ZONE_WORKOUT_ERROR  = "×\n" + "Please fix the following errors:\n" + "*Please select a valid Activity Zone Type.";
     @Test(groups = {"withSuccessLogin", "regression", "smoke", "deleteWorkout"})
     public void positiveViewWorkoutReport() {
         AddWorkout quickWorkout = new AddWorkout.AddWorkoutBuilder()
@@ -36,6 +37,6 @@ public class ReportTests extends BaseTest {
         reportPage.setStartDate(-1);
         reportPage.setEndDate(1);
         reportPage.clickViewReport();
-        Assert.assertEquals(reportPage.zoneWorkoutError(), "×\n" + "Please fix the following errors:\n" + "*Please select a valid Activity Zone Type.");
+        Assert.assertEquals(reportPage.zoneWorkoutError(), ZONE_WORKOUT_ERROR);
     }
 }
